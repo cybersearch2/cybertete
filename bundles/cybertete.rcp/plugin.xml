@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="au.com.cybersearch2.cybertete"
+            application="org.eclipse.e4.ui.workbench.swt.E4Application">
+         <property
+               name="lifeCycleURI"
+               value="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.E4LifeCycle">
+         </property>
+         <property
+               name="appName"
+               value="au.com.cybersearch2.cybertete">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="com.opcoach.e4.preferences.e4PreferencePages">
+      <page
+            class="au.com.cybersearch2.cybertete.preferences.CybertetePreferencePage"
+            id="au.com.cybersearch2.cybertete.preferences.CybertetePreferencePage"
+            name="General">
+      </page>
+   </extension>
+   <extension
+         point="com.opcoach.e4.preferences.e4PreferenceStoreProvider">
+      <preferenceStoreProvider
+            idInWorkbenchContext="au.com.cybersearch2.cybertete.ScopedPreferenceStore"
+            pluginId="au.com.cybersearch2.cybertete">
+      </preferenceStoreProvider>
+   </extension>
+
+</plugin>

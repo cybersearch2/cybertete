@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" label="Cybertete" iconURI="platform:/plugin/au.com.cybersearch2.cybertete/icons/chat.gif" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ" width="800" height="600">
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_fDwVMHbHEeWN_8b9A5xC-g" elementId="au.com.cybersearch2.cybertete.perspectivestack.0">
+      <children xsi:type="advanced:Perspective" xmi:id="_f6JxsHbHEeWN_8b9A5xC-g" elementId="au.com.cybersearch2.cybertete.perspective.default" label="Default" iconURI="platform:/plugin/au.com.cybersearch2.cybertete/icons/chat.gif">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_mGCFIHbHEeWN_8b9A5xC-g" elementId="au.com.cybersearch2.cybertete.partsashcontainer.0" containerData="10000" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_1EJpQHbSEeWN_8b9A5xC-g" elementId="au.com.cybersearch2.cybertete.partstack.0" containerData="5000">
+            <children xsi:type="basic:Part" xmi:id="_jsjGMHeAEeWI46K23-LbIw" elementId="au.com.cybersearch2.cybertete.part.contacts" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.views.ContactsView" label="Contacts">
+              <menus xsi:type="menu:PopupMenu" xmi:id="_Mn9B0HeDEeWI46K23-LbIw" elementId="contacts.popup">
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_t9HxcHkdEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.handledmenuitem.chat" label="Chat..." tooltip="Chat with the selected contact" mnemonics="T" command="_LP0E4HkdEeWAWZseg_ogqQ"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_9sOFAIKIEeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.handledmenuitem.closeallchats" label="Close All Chats" tooltip="Close all chat sessions" command="_pTenEIKEEeWlyq6M9BWvIQ"/>
+              </menus>
+            </children>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_NXGOsHeiEeWI46K23-LbIw" elementId="au.com.cybersearch2.cybertete.partstack.chat" containerData="5000">
+            <children xsi:type="basic:Part" xmi:id="_QfWZEHeiEeWI46K23-LbIw" elementId="au.com.cybersearch2.cybertete.part.chat" toBeRendered="false" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.views.ChatSessionView" label="Chat"/>
+          </children>
+        </children>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_QhAegJDTEeWixJ7tTeSK9g" elementId="au.com.cybersearch2.cybertete.perspective.offline" label="Offline" iconURI="platform:/plugin/au.com.cybersearch2.cybertete/icons/logon.gif">
+        <children xsi:type="basic:PartStack" xmi:id="_sbwSIJDTEeWixJ7tTeSK9g" elementId="au.com.cybersearch2.cybertete.partstack.1">
+          <children xsi:type="basic:Part" xmi:id="_u4OUkJDTEeWixJ7tTeSK9g" elementId="au.com.cybersearch2.cybertete.part.login" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.views.LoginView" label="Advanced Login"/>
+          <children xsi:type="basic:Part" xmi:id="_px7lsJ60EeWZk9tYMs7t5w" elementId="au.com.cybersearch2.cybertete.part.security" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.views.SecurityView" label="Security"/>
+        </children>
+      </children>
+    </children>
+    <mainMenu xmi:id="_ZLDz0HiFEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.menu.0">
+      <children xsi:type="menu:Menu" xmi:id="_2BLOEHiGEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.menu.file" label="File" mnemonics="F">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_UCN2cHigEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.handledmenuitem.addcontact" label="Add Contact" iconURI="platform:/plugin/au.com.cybersearch2.cybertete/icons/add_contact.gif" tooltip="Add a contact to your contacts list" mnemonics="A" command="_CYBFkHigEeWj07ma8Mq0_w"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_6pG74HkdEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.menuseparator.0"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_71CDEHiGEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.handledmenuitem.exit" label="Exit" mnemonics="Q" command="_ryj6cHiFEeWj07ma8Mq0_w"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_IXO2MIKJEeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.menu.chat" label="Chat">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_AKikIHkeEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.handledmenuitem.chat" label="Chat..." iconURI="platform:/plugin/au.com.cybersearch2.cybertete/icons/chat.gif" tooltip="Chat with the selected contact" mnemonics="T" command="_LP0E4HkdEeWAWZseg_ogqQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_WU4c0IKJEeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.handledmenuitem.closeallchats" label="Close All Chats" tooltip="Close all chat sessions" command="_pTenEIKEEeWlyq6M9BWvIQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_F16LUIK9EeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.handledmenuitem.changecontactstatus" label="Change Contact Status..." tooltip="Change your presence as seen by others" command="_TxVZ0IK8EeWlyq6M9BWvIQ"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_BsFs8H0wEeWBK7kde6p8WA" elementId="au.com.cybersearch2.cybertete.menu.help" label="Help">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_DkTLwH0wEeWBK7kde6p8WA" elementId="au.com.cybersearch2.cybertete.handledmenuitem.preferences" label="Preferences" command="_xjAHUH0gEeWBK7kde6p8WA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_BvFR4Ig5EeWNWpDOertdKA" elementId="au.com.cybersearch2.cybertete.handledmenuitem.update" label="Update" command="_OOekEIg0EeWNWpDOertdKA"/>
+      </children>
+    </mainMenu>
+    <trimBars xmi:id="_ZyLXkHkcEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.trimbar.0">
+      <children xsi:type="menu:ToolBar" xmi:id="_hLBNYHkcEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.toolbar.0">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Tl1fMHkeEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.handledtoolitem.chat" label="Chat" iconURI="platform:/plugin/au.com.cybersearch2.cybertete/icons/chat.gif" tooltip="Chat with the selected contact" command="_LP0E4HkdEeWAWZseg_ogqQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_jPdKUHkcEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.handledtoolitem.addcontact" label="Add Contact" iconURI="platform:/plugin/au.com.cybersearch2.cybertete/icons/add_contact.gif" tooltip="Add a contact to your contacts list" command="_CYBFkHigEeWj07ma8Mq0_w"/>
+      </children>
+    </trimBars>
+    <trimBars xmi:id="_Erq3YIkAEeWWNfGgAhNyaw" elementId="au.com.cybersearch2.statusline.trimbar" side="Bottom"/>
+  </children>
+  <handlers xmi:id="_EtjYYHiGEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.handler.exit" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.handlers.ExitHandler" command="_ryj6cHiFEeWj07ma8Mq0_w"/>
+  <handlers xmi:id="_GpdsoHigEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.handler.addContact" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.handlers.AddContactHandler" command="_CYBFkHigEeWj07ma8Mq0_w"/>
+  <handlers xmi:id="_mUKcAHkdEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.handler.0" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.handlers.StartChatHandler" command="_LP0E4HkdEeWAWZseg_ogqQ"/>
+  <handlers xmi:id="_s7l5gH0vEeWBK7kde6p8WA" elementId="au.com.cybersearch2.cybertete.handler.1" contributionURI="bundleclass://com.opcoach.e4.preferences/com.opcoach.e4.preferences.handlers.E4PreferencesHandler" command="_xjAHUH0gEeWBK7kde6p8WA"/>
+  <handlers xmi:id="_vu-q4IKEEeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.handler.closeAllChats" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.handlers.CloseAllHandler" command="_pTenEIKEEeWlyq6M9BWvIQ"/>
+  <handlers xmi:id="_5EtJsIK8EeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.handler.2" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.handlers.ChangePresenceHandler" command="_TxVZ0IK8EeWlyq6M9BWvIQ"/>
+  <handlers xmi:id="_TWhb8Ig0EeWNWpDOertdKA" elementId="au.com.cybersearch2.cybertete.handler.3" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.handlers.UpdateHandler" command="_OOekEIg0EeWNWpDOertdKA"/>
+  <bindingTables xmi:id="_awz6kHiOEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.bindingtable.0" bindingContext="_c3AF2sjYEeSyMNYR5xypkQ">
+    <bindings xmi:id="_bsAXgHiOEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.keybinding.0" keySequence="M1+Q" command="_ryj6cHiFEeWj07ma8Mq0_w">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_WMrr0HkBEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.keybinding.1" keySequence="M1+A" command="_CYBFkHigEeWj07ma8Mq0_w">
+      <tags>type:user</tags>
+    </bindings>
+    <bindings xmi:id="_e3vRQHkeEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.keybinding.chat" keySequence="M1+T" command="_LP0E4HkdEeWAWZseg_ogqQ">
+      <tags>type:user</tags>
+    </bindings>
+  </bindingTables>
+  <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
+    <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
+    <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
+  </rootContext>
+  <commands xmi:id="_ryj6cHiFEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.command.exit" commandName="Exit" category="_RGK0QHkdEeWAWZseg_ogqQ"/>
+  <commands xmi:id="_CYBFkHigEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.command.addcontact" commandName="Add Contact" category="_RGK0QHkdEeWAWZseg_ogqQ"/>
+  <commands xmi:id="_LP0E4HkdEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.command.chat" commandName="Chat" category="_RGK0QHkdEeWAWZseg_ogqQ"/>
+  <commands xmi:id="_xjAHUH0gEeWBK7kde6p8WA" elementId="org.eclipse.ui.window.preferences" commandName="Preferences"/>
+  <commands xmi:id="_pTenEIKEEeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.command.closeallchats" commandName="Close All Chats" category="_RGK0QHkdEeWAWZseg_ogqQ"/>
+  <commands xmi:id="_TxVZ0IK8EeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.command.changeContactStatus" commandName="Change Contact Status" category="_RGK0QHkdEeWAWZseg_ogqQ"/>
+  <commands xmi:id="_OOekEIg0EeWNWpDOertdKA" elementId="au.com.cybersearch2.cybertete.command.update" commandName="Update" category="_RGK0QHkdEeWAWZseg_ogqQ"/>
+  <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_c3AF1cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_c3AF1sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+  <addons xmi:id="_c3AF18jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_c3AF2MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <categories xmi:id="_RGK0QHkdEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.category" name="CyberTete"/>
+</application:Application>

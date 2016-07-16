@@ -1,0 +1,74 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>au.com.cybersearch2</groupId>
+        <artifactId>cybertete.bundles</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>au.com.cybersearch2.cybertete</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <packaging>eclipse-plugin</packaging>
+
+    <build>
+      <plugins>
+       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+          <execution>
+           <goals>
+               <goal>jar</goal>
+           </goals>
+           <configuration>
+           </configuration>
+           </execution>
+        </executions>
+        <configuration>
+           <!-- Disable inheritDoc tag -->
+           <additionalparam>-tag inheritDoc:X</additionalparam>
+           <doctitle><![CDATA[<h1>Cybertete API - Chat XMPP Client</h1>]]></doctitle>
+           <windowtitle>Cybertete API - Eclipse E4 Design Demo</windowtitle> 
+           <links>
+            <link>https://docs.oracle.com/javase/7/docs/api/</link>
+            <link>http://download.igniterealtime.org/smack/docs/4.1.7/javadoc/</link>
+           </links>
+         </configuration>
+       </plugin>
+      </plugins>
+    </build>
+    <profiles>
+        <profile>
+          <id>doclint-java8-disable</id>
+          <activation>
+            <jdk>[1.8,)</jdk>
+          </activation>
+          <build>
+            <plugins>
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                  <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+              </plugin>
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                  <reportPlugins>
+                    <plugin>
+                      <groupId>org.apache.maven.plugins</groupId>
+                      <artifactId>maven-javadoc-plugin</artifactId>
+                      <configuration>
+                        <additionalparam>-Xdoclint:none</additionalparam>
+                      </configuration>
+                    </plugin>
+                  </reportPlugins>
+                </configuration>
+              </plugin>
+            </plugins>
+          </build>
+        </profile>
+    </profiles>
+</project>
