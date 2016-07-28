@@ -12,6 +12,7 @@
     <properties>
       <repo.url>file:/${basedir}/p2</repo.url>
       <target.dir>${basedir}/../releng/cybertete.target</target.dir>
+      <target.file>cybertete.target.target</target.file>
     </properties>
 
     <profiles>
@@ -19,6 +20,18 @@
           <id>install</id>
           <build>
             <plugins>
+              <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                  <excludeDefaultDirectories>false</excludeDefaultDirectories>
+                  <filesets>
+                    <fileset>
+                      <directory>${target.dir}</directory>
+                      <includes><include>${target.file}</include></includes>
+                    </fileset>
+                 </filesets>
+                </configuration>
+               </plugin>
                <plugin>
                    <groupId>org.codehaus.mojo</groupId>
                    <artifactId>exec-maven-plugin</artifactId>

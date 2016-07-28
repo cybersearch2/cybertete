@@ -22,8 +22,11 @@
 <repository location="http://download.eclipse.org/eclipse/updates/4.5"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="au.com.cybersearch2.statusbar" version="1.0.1"/>
-<repository location="http://microserver/p2"/>
+<unit id="au.com.cybersearch2.statusbar.feature.source.feature.group" version="1.1.0.201607160319"/>
+<unit id="au.com.cybersearch2.control_factory.feature.source.feature.group" version="1.1.0.201607151040"/>
+<unit id="au.com.cybersearch2.statusbar.feature.feature.group" version="1.1.0.201607160319"/>
+<unit id="au.com.cybersearch2.control_factory.feature.feature.group" version="1.1.0.201607151040"/>
+<repository location="https://dl.bintray.com/andrew-bowley/generic/Statusbar/V1.1.0/"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="com.opcoach.e4.preferences.feature.feature.group" version="1.0.0.201603310905"/>
@@ -44,7 +47,7 @@
 <unit id="org.igniterealtime.smack.java7" version="4.1.7"/>
 <unit id="xpp3" version="1.1.0.4c"/>
 <unit id="org.igniterealtime.smack.im" version="4.1.7"/>
-<repository location="file:/E:/git/cybertete/repo/p2/target/repository/"/>
+<repository location="file:/git/target/repository/"/>
 </location>
 </locations>
 </target>

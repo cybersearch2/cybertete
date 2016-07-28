@@ -30,6 +30,18 @@
           <id>install</id>
           <build>
             <plugins>
+              <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                  <excludeDefaultDirectories>false</excludeDefaultDirectories>
+                  <filesets>
+                    <fileset>
+                      <directory>${target.dir}</directory>
+                      <includes><include>${target.file}</include></includes>
+                    </fileset>
+                 </filesets>
+                </configuration>
+               </plugin>
                <plugin>
                    <groupId>org.codehaus.mojo</groupId>
                    <artifactId>exec-maven-plugin</artifactId>
