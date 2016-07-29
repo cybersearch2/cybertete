@@ -6,5 +6,5 @@ This is a research project investigating how to best utilize the latest E4 techn
 
 ![Cybertete](/images/cybertete-chat.png)
 
-For information on Cybertete, go to our [support site] (www.cybersearch2.com.au/eclipse).
+For information on Cybertete, go to our [support site] (http://cybersearch2.com.au/eclipse).
 
