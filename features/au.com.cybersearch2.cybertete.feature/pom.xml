@@ -2,10 +2,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>au.com.cybersearch2</groupId>
-        <artifactId>cybertete.test</artifactId>
+        <artifactId>cybertete.features</artifactId>
         <version>1.2.0-SNAPSHOT</version>
     </parent>
-    <artifactId>cybertete.unittests.target</artifactId>
+    <artifactId>au.com.cybersearch2.cybertete.feature</artifactId>
     <version>1.2.0-SNAPSHOT</version>
-    <packaging>eclipse-target-definition</packaging>
-</project>
+    <packaging>eclipse-feature</packaging>
+ </project>

@@ -1,11 +1,11 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>cybertete.unittest.manifest</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.2.0-SNAPSHOT</version>
   <parent>
     <groupId>au.com.cybersearch2</groupId>
     <artifactId>cybertete.test</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
   </parent>
   <packaging>bundle</packaging>   
   <name>cybertete Unit Test Manifest Generator</name>
