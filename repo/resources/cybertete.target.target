@@ -24,15 +24,15 @@
 <!-- The control-factory plugin dependency can be satisfied by local Maven repository to get the latest snapshot/release. -->
      This location is normally set using PDE Target Editor -->
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="au.com.cybersearch2.control_factory.feature.feature.group" version="1.2.0"/>
-<unit id="au.com.cybersearch2.control_factory.feature.source.feature.group" version="1.2.0"/>
+<unit id="au.com.cybersearch2.control_factory.feature.feature.group" version="1.2.1"/>
+<unit id="au.com.cybersearch2.control_factory.feature.source.feature.group" version="1.2.1"/>
 <repository location="http://pdrone.cybersearch2.local/p2/control-factory/"/>
 </location>
 <!-- The control-factory plugin dependency can be satisfied by local Maven repository to get the latest snapshot/release. -->
      This location is normally set using PDE Target Editor -->
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="au.com.cybersearch2.statusbar.feature.feature.group" version="1.2.0"/>
-<unit id="au.com.cybersearch2.statusbar.feature.source.feature.group" version="1.2.0"/>
+<unit id="au.com.cybersearch2.statusbar.feature.feature.group" version="1.2.1"/>
+<unit id="au.com.cybersearch2.statusbar.feature.source.feature.group" version="1.2.1"/>
 <repository location="http://pdrone.cybersearch2.local/p2/statusbar/"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
