@@ -8,7 +8,6 @@
         <xsl:output-character character="&#x005C;" string="&#x002F;"/>
     </xsl:character-map>
   <xsl:param name="repo_loc"/>
-  <xsl:param name="swt_os_arch"/>
   <xsl:output method="xml"  omit-xml-declaration="yes"/> 
   <xsl:template match="@*|node()">
     <xsl:copy>

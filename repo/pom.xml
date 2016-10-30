@@ -1,17 +1,17 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cybertete.repo</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
     <parent>
         <groupId>au.com.cybersearch2</groupId>
         <artifactId>cybertete.root</artifactId>
         <version>1.2.0-SNAPSHOT</version>
     </parent>
+    <artifactId>cybertete.repo</artifactId>
+    <version>1.2.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
     <properties>
-      <repo.url>file:/${basedir}/p2</repo.url>
-      <target.dir>${basedir}/../releng/cybertete.target</target.dir>
+      <repo.url>${project.baseUri}p2</repo.url>
+      <target.dir>${basedir}/../cybertete.target</target.dir>
       <target.file>cybertete.target.target</target.file>
     </properties>
 
@@ -35,7 +35,6 @@
               <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
-                <version>1.0.1</version>
                 <inherited>false</inherited>
                 <executions>
                   <execution>

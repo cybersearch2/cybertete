@@ -1,102 +1,124 @@
 <project>
- <modelVersion>4.0.0</modelVersion>
- <groupId>au.com.cybersearch2</groupId>
- <artifactId>cybertete.root</artifactId>
- <version>1.2.0-SNAPSHOT</version>
- <packaging>pom</packaging>
- <properties>
-  <tycho.version>0.25.0</tycho.version>
-  <felix.version>3.0.1</felix.version>
-  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  <mars-repo.url>http://download.eclipse.org/eclipse/updates/4.5</mars-repo.url>
-  <third-party-repo>file:/${basedir}/../../repo/p2/target/repository</third-party-repo>
-  <!-- Skip the deployment here, submodules can override this property -->
-  <maven.deploy.skip>true</maven.deploy.skip>
- </properties>
- <modules>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>au.com.cybersearch2</groupId>
+  <artifactId>cybertete.root</artifactId>
+  <version>1.2.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <properties>
+    <tycho.version>0.25.0</tycho.version>
+    <felix.version>3.0.1</felix.version>
+    <junit.version>4.12</junit.version>
+    <powermock.version>1.6.5</powermock.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <eclipse-repo.url>http://download.eclipse.org/eclipse/updates/4.6</eclipse-repo.url>
+    <third-party-repo>${project.baseUri}repo/p2/target/repository</third-party-repo>
+    <!-- Skip the deployment here, submodules can override this property -->
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+  <modules>
     <module>repo</module>
-    <module>test</module>
-    <module>bundles</module>
-    <module>features</module>
-    <module>releng</module>
- </modules>
-  <scm>
-    <connection>scm:git:ssh://git@gitserver:/opt/git/cybertete.git</connection>
-  </scm>
- <repositories>
-  <repository>
-   <id>mars-repo</id>
-   <url>${mars-repo.url}</url>
-   <layout>p2</layout>
-  </repository>
-  <repository>
-    <id>third-party-plugins</id>
-    <layout>p2</layout>
-    <url>${third-party-repo}</url>
-  </repository>
- </repositories>
- <build>
-  <plugins>
-   <plugin>
-    <groupId>org.eclipse.tycho</groupId>
-    <artifactId>target-platform-configuration</artifactId>
-    <version>${tycho.version}</version>
-    <configuration>
-    <target> 
-        <artifact>
-            <groupId>au.com.cybersearch2</groupId>
-            <artifactId>cybertete.target</artifactId>
-            <version>${project.version}</version>
-        </artifact>
-    </target>     
-    <environments>
-      <environment>
-       <os>linux</os>
-       <ws>gtk</ws>
-       <arch>x86</arch>
-      </environment>
-      <environment>
-       <os>linux</os>
-       <ws>gtk</ws>
-       <arch>x86_64</arch>
-      </environment>
-      <environment>
-       <os>win32</os>
-       <ws>win32</ws>
-       <arch>x86</arch>
-      </environment>
-      <environment>
-       <os>win32</os>
-       <ws>win32</ws>
-       <arch>x86_64</arch>
-      </environment>
-     <!-- Shorten list for speed -->
-      <environment>
-       <os>macosx</os>
-       <ws>cocoa</ws>
-       <arch>x86_64</arch>
-      </environment>
-      -->
-     </environments>
-    </configuration>
-   </plugin>
-  <!-- Skip the install, since we do not need the artifacts in our local mvn repo -->
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-install-plugin</artifactId>
-    <configuration>
-	  <skip>true</skip>
-    </configuration>
-  </plugin>
-   <plugin>
-    <groupId>org.eclipse.tycho</groupId>
-    <artifactId>tycho-maven-plugin</artifactId>
-    <version>${tycho.version}</version>
-    <extensions>true</extensions>
-   </plugin>
-  </plugins>
-  <pluginManagement>
-   <plugins>
+	<module>cybertete.rcp</module>
+	<module>au.com.cybersearch2.cybertete.feature</module>
+	<module>cybertete.target</module>
+	<module>cybertete.product</module>
+	<module>cybertete.update</module>
+  </modules>
+   <scm>
+     <connection>scm:git:ssh://git@gitserver:/opt/git/cybertete.git</connection>
+   </scm>
+  <repositories>
+	  <repository>
+	   <id>eclipse-repo</id>
+	   <url>${eclipse-repo.url}</url>
+	   <layout>p2</layout>
+	  </repository>
+  </repositories>
+  <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.0.42-beta</version>
+            <exclusions>
+            	<exclusion>
+            	    <!-- Powermock uses later version of objenesis -->
+		            <groupId>org.objenesis</groupId>
+		            <artifactId>objenesis</artifactId>
+            	</exclusion>
+            </exclusions>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.easytesting</groupId>
+          <artifactId>fest-assert-core</artifactId>
+          <version>2.0M10</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+  </dependencyManagement>
+  <build>
+    <plugins>
+	   <plugin>
+		<groupId>org.eclipse.tycho</groupId>
+		<artifactId>target-platform-configuration</artifactId>
+		<version>${tycho.version}</version>
+		<configuration>
+		<target> 
+			<artifact>
+				<groupId>au.com.cybersearch2</groupId>
+				<artifactId>cybertete.target</artifactId>
+				<version>${project.version}</version>
+			</artifact>
+		</target>  
+		<osgi.arch>x86_64</osgi.arch>
+		<environments>
+		  <environment>
+		   <os>linux</os>
+		   <ws>gtk</ws>
+		   <arch>x86</arch>
+		  </environment>
+		  <environment>
+		   <os>linux</os>
+		   <ws>gtk</ws>
+		   <arch>x86_64</arch>
+		  </environment>
+		  <environment>
+		   <os>win32</os>
+		   <ws>win32</ws>
+		   <arch>x86</arch>
+		  </environment>
+		  <environment>
+		   <os>win32</os>
+		   <ws>win32</ws>
+		   <arch>x86_64</arch>
+		  </environment>
+		 <!-- Shorten list for speed -->
+		  <environment>
+		   <os>macosx</os>
+		   <ws>cocoa</ws>
+		   <arch>x86_64</arch>
+		  </environment>
+		  -->
+		 </environments>
+		</configuration>
+	   </plugin>
+	  <!-- Skip the install, since we do not need the artifacts in our local mvn repo -->
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-install-plugin</artifactId>
+		<configuration>
+		  <skip>true</skip>
+		</configuration>
+	  </plugin>
+	   <plugin>
+		<groupId>org.eclipse.tycho</groupId>
+		<artifactId>tycho-maven-plugin</artifactId>
+		<version>${tycho.version}</version>
+		<extensions>true</extensions>
+	   </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
         <plugin>
          <groupId>org.eclipse.tycho</groupId>
          <artifactId>tycho-packaging-plugin</artifactId>
@@ -138,11 +160,11 @@
             <version>${felix.version}</version>
             <extensions>true</extensions>
         </plugin>
-      <plugin>
+        <plugin>
           <groupId>org.eclipse.tycho</groupId>  
           <artifactId>tycho-versions-plugin</artifactId>  
           <version>${tycho.version}</version>  
-      </plugin>     
+        </plugin>     
         <plugin>
     		<groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-install-plugin</artifactId>
@@ -161,12 +183,17 @@
         <plugin>
     		<groupId>org.apache.maven.plugins</groupId>
     		<artifactId>maven-compiler-plugin</artifactId>
-    		<version>3.1</version>
+    		<version>3.5.1</version>
        </plugin>
        <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>2.10.3</version>
+      </plugin>
+      <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19.1</version>
       </plugin>
       <plugin>
             <groupId>org.codehaus.mojo</groupId>
@@ -186,87 +213,100 @@
            <artifactId>exec-maven-plugin</artifactId>
            <version>1.5.0</version>
        </plugin>
-   </plugins>
+     </plugins>
   </pluginManagement>
- </build>
- <profiles>
-    <!-- SWT bundle used for unit testing depends on running platform. -->
-  <profile>
-    <id>32bit-windows</id>
-    <!-- via this activation the profile is automatically used when running in 32-bit Windows -->
-    <activation>
-      <os>
-        <arch>x86</arch>
-        <family>Windows</family>
-      </os>    
-    </activation>
-    <properties>
-      <swt.os.arch>win32.win32.x86</swt.os.arch>
-    </properties>
-  </profile>
-  <profile>
-    <id>64bit-windows</id>
-    <!-- via this activation the profile is automatically used when running in 64-bit Windows -->
-    <activation>
-      <os>
-        <arch>amd64</arch>
-        <family>Windows</family>
-      </os>    
-    </activation>
-     <properties>
-       <swt.os.arch>win32.win32.x86_64</swt.os.arch>
-    </properties>
-  </profile>
-  <profile>
-    <id>32bit-dos</id>
-    <!-- via this activation the profile is automatically used when running in 32-bit DOS -->
-    <activation>
-      <os>
-        <arch>x86</arch>
-        <family>dos</family>
-      </os>    
-    </activation>
-    <properties>
-      <swt.os.arch>win32.win32.x86</swt.os.arch>
-    </properties>
-  </profile>
-  <profile>
-    <id>64bit-dos</id>
-    <!-- via this activation the profile is automatically used when running in 64-bit DOS -->
-    <activation>
-      <os>
-        <arch>amd64</arch>
-        <family>dos</family>
-      </os>    
-    </activation>
-     <properties>
-      <swt.os.arch>win32.win32.x86_64</swt.os.arch>
-    </properties>
-  </profile>
-  <profile>
-    <id>32bit-linux</id>
-    <!-- via this activation the profile is automatically used when running in 32-bit Linux -->
-    <activation>
-      <os>
-        <arch>x86</arch>
-        <family>unix</family>
-      </os>    
-    </activation>
-    <properties>
-      <swt.os.arch>gtk.linux.x86</swt.os.arch>
-    </properties>
-  </profile>
-  <profile>
-    <id>64bit-linux</id>
-    <!-- via this activation the profile is automatically used when running in 64-bit Linux -->
-    <activation>
-      <os>
-        <arch>amd64</arch>
-        <family>unix</family>
-      </os>    
-    </activation>
-     <properties>
-      <swt.os.arch>gtk.linux.x86_64</swt.os.arch>
-    </properties>
-  </profile>
- </profiles></project>
+  </build>
+  <profiles>
+	  <!-- Target platform parameters for unit testing, set dynamically. -->
+	  <profile>
+		<id>32bit-windows</id>
+		<!-- via this activation the profile is automatically used when running in 32-bit Windows -->
+		<activation>
+		  <os>
+			<arch>x86</arch>
+			<family>Windows</family>
+		  </os>    
+		</activation>
+		<properties>
+		  <osgi.os>win32</osgi.os>
+		  <osgi.ws>win32</osgi.ws>
+		  <osgi.arch>x86</osgi.arch>
+		</properties>
+	  </profile>
+	  <profile>
+		<id>64bit-windows</id>
+		<!-- via this activation the profile is automatically used when running in 64-bit Windows -->
+		<activation>
+		  <os>
+			<arch>amd64</arch>
+			<family>Windows</family>
+		  </os>    
+		</activation>
+		 <properties>
+		  <osgi.os>win32</osgi.os>
+		  <osgi.ws>win32</osgi.ws>
+		  <osgi.arch>x86_64</osgi.arch>
+		</properties>
+	  </profile>
+	  <profile>
+		<id>32bit-dos</id>
+		<!-- via this activation the profile is automatically used when running in 32-bit DOS -->
+		<activation>
+		  <os>
+			<arch>x86</arch>
+			<family>dos</family>
+		  </os>    
+		</activation>
+		<properties>
+		  <osgi.os>win32</osgi.os>
+		  <osgi.ws>win32</osgi.ws>
+		  <osgi.arch>x86</osgi.arch>
+		</properties>
+	  </profile>
+	  <profile>
+		<id>64bit-dos</id>
+		<!-- via this activation the profile is automatically used when running in 64-bit DOS -->
+		<activation>
+		  <os>
+			<arch>amd64</arch>
+			<family>dos</family>
+		  </os>    
+		</activation>
+		 <properties>
+		  <osgi.os>win32</osgi.os>
+		  <osgi.ws>win32</osgi.ws>
+		  <osgi.arch>x86_64</osgi.arch>
+		</properties>
+	  </profile>
+	  <profile>
+		<id>32bit-linux</id>
+		<!-- via this activation the profile is automatically used when running in 32-bit Linux -->
+		<activation>
+		  <os>
+			<arch>x86</arch>
+			<family>unix</family>
+		  </os>    
+		</activation>
+		<properties>
+		  <osgi.os>linux</osgi.os>
+		  <osgi.ws>gtk</osgi.ws>
+		  <osgi.arch>x86</osgi.arch>
+		</properties>
+	  </profile>
+	  <profile>
+		<id>64bit-linux</id>
+		<!-- via this activation the profile is automatically used when running in 64-bit Linux -->
+		<activation>
+		  <os>
+			<arch>amd64</arch>
+			<family>unix</family>
+		  </os>    
+		</activation>
+		 <properties>
+		  <osgi.os>linux</osgi.os>
+		  <osgi.ws>gtk</osgi.ws>
+		  <osgi.arch>x86_64</osgi.arch>
+		</properties>
+	  </profile>
+  </profiles>
+  </project>
