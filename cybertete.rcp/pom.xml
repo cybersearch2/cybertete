@@ -3,13 +3,13 @@
     <parent>
         <groupId>au.com.cybersearch2</groupId>
         <artifactId>cybertete.root</artifactId>
-        <version>1.2.0-SNAPSHOT</version>
+        <version>1.2.2-SNAPSHOT</version>
     </parent>
     <artifactId>au.com.cybersearch2.cybertete</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.2.2-SNAPSHOT</version>
     <packaging>eclipse-plugin</packaging>
     <properties>
-        <third-party-repo>${project.baseUri}../repo/p2/target/repository</third-party-repo>
+        <third-party-repo>${project.baseUri}../p2</third-party-repo>
     </properties>
     <repositories>
 	  <repository>
@@ -101,6 +101,13 @@
 		   <arch>${osgi.arch}</arch>
 		  </environment>
 		 </environments>
+	     <target> 
+			<artifact>
+				<groupId>au.com.cybersearch2</groupId>
+				<artifactId>cybertete.root</artifactId>
+				<version>${project.version}</version>
+			</artifact>
+		  </target>  
 		</configuration>
 	   </plugin>
        <plugin>

@@ -24,16 +24,16 @@
 <!-- The control-factory plugin dependency can be satisfied by local Maven repository to get the latest snapshot/release. -->
      This location is normally set using PDE Target Editor -->
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="au.com.cybersearch2.control_factory.feature.feature.group" version="1.2.1"/>
-<unit id="au.com.cybersearch2.control_factory.feature.source.feature.group" version="1.2.1"/>
-<repository location="http://pdrone.cybersearch2.local/p2/control-factory/"/>
+<unit id="au.com.cybersearch2.control_factory.feature.feature.group" version="1.2.2"/>
+<unit id="au.com.cybersearch2.control_factory.feature.source.feature.group" version="1.2.2"/>
+<repository location="${control-factory-repo.url}"/>
 </location>
 <!-- The control-factory plugin dependency can be satisfied by local Maven repository to get the latest snapshot/release. -->
      This location is normally set using PDE Target Editor -->
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="au.com.cybersearch2.statusbar.feature.feature.group" version="1.2.1"/>
-<unit id="au.com.cybersearch2.statusbar.feature.source.feature.group" version="1.2.1"/>
-<repository location="http://pdrone.cybersearch2.local/p2/statusbar/"/>
+<unit id="au.com.cybersearch2.statusbar.feature.feature.group" version="1.2.3"/>
+<unit id="au.com.cybersearch2.statusbar.feature.source.feature.group" version="1.2.3"/>
+<repository location="${statusbar-repo.url}"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="com.opcoach.e4.preferences.feature.feature.group" version="1.0.0.201603310905"/>
@@ -54,7 +54,7 @@
 <unit id="org.igniterealtime.smack.java7" version="4.1.7"/>
 <unit id="xpp3" version="1.1.0.4c"/>
 <unit id="org.igniterealtime.smack.im" version="4.1.7"/>
-<repository location="file:/git/target/repository/"/>
+<repository location="${project.url}p2/"/>
 </location>
 </locations>
 </target>

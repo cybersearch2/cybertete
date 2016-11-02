@@ -2,27 +2,21 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>au.com.cybersearch2</groupId>
   <artifactId>cybertete.root</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>1.2.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
-    <tycho.version>0.25.0</tycho.version>
+	<tycho.version>0.25.0</tycho.version>
     <felix.version>3.0.1</felix.version>
     <junit.version>4.12</junit.version>
     <powermock.version>1.6.5</powermock.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <eclipse-repo.url>http://download.eclipse.org/eclipse/updates/4.6</eclipse-repo.url>
-    <third-party-repo>${project.baseUri}repo/p2/target/repository</third-party-repo>
+    <third-party-repo>${project.baseUri}p2/</third-party-repo>
+    <control-factory-repo.url>http://pdrone.cybersearch2.local/p2/control-factory/</control-factory-repo.url>
+    <statusbar-repo.url>http://pdrone.cybersearch2.local/p2/statusbar/</statusbar-repo.url>
     <!-- Skip the deployment here, submodules can override this property -->
     <maven.deploy.skip>true</maven.deploy.skip>
   </properties>
-  <modules>
-    <module>repo</module>
-	<module>cybertete.rcp</module>
-	<module>au.com.cybersearch2.cybertete.feature</module>
-	<module>cybertete.target</module>
-	<module>cybertete.product</module>
-	<module>cybertete.update</module>
-  </modules>
    <scm>
      <connection>scm:git:ssh://git@gitserver:/opt/git/cybertete.git</connection>
    </scm>
@@ -58,48 +52,44 @@
   </dependencyManagement>
   <build>
     <plugins>
-	   <plugin>
+	 <plugin>
+		<groupId>org.eclipse.tycho</groupId>
+		<artifactId>tycho-maven-plugin</artifactId>
+		<version>${tycho.version}</version>
+		<extensions>true</extensions>
+	  </plugin>
+ 	  <plugin>
 		<groupId>org.eclipse.tycho</groupId>
 		<artifactId>target-platform-configuration</artifactId>
 		<version>${tycho.version}</version>
 		<configuration>
-		<target> 
-			<artifact>
-				<groupId>au.com.cybersearch2</groupId>
-				<artifactId>cybertete.target</artifactId>
-				<version>${project.version}</version>
-			</artifact>
-		</target>  
-		<osgi.arch>x86_64</osgi.arch>
-		<environments>
-		  <environment>
-		   <os>linux</os>
-		   <ws>gtk</ws>
-		   <arch>x86</arch>
-		  </environment>
-		  <environment>
-		   <os>linux</os>
-		   <ws>gtk</ws>
-		   <arch>x86_64</arch>
-		  </environment>
-		  <environment>
-		   <os>win32</os>
-		   <ws>win32</ws>
-		   <arch>x86</arch>
-		  </environment>
-		  <environment>
-		   <os>win32</os>
-		   <ws>win32</ws>
-		   <arch>x86_64</arch>
-		  </environment>
-		 <!-- Shorten list for speed -->
-		  <environment>
-		   <os>macosx</os>
-		   <ws>cocoa</ws>
-		   <arch>x86_64</arch>
-		  </environment>
-		  -->
-		 </environments>
+	  	  <environments>
+			  <environment>
+			   <os>linux</os>
+			   <ws>gtk</ws>
+			   <arch>x86</arch>
+			  </environment>
+			  <environment>
+			   <os>linux</os>
+			   <ws>gtk</ws>
+			   <arch>x86_64</arch>
+			  </environment>
+			  <environment>
+			   <os>win32</os>
+			   <ws>win32</ws>
+			   <arch>x86</arch>
+			  </environment>
+			  <environment>
+			   <os>win32</os>
+			   <ws>win32</ws>
+			   <arch>x86_64</arch>
+			  </environment>
+			  <environment>
+			   <os>macosx</os>
+			   <ws>cocoa</ws>
+			   <arch>x86_64</arch>
+			  </environment>
+		   </environments>
 		</configuration>
 	   </plugin>
 	  <!-- Skip the install, since we do not need the artifacts in our local mvn repo -->
@@ -110,15 +100,14 @@
 		  <skip>true</skip>
 		</configuration>
 	  </plugin>
-	   <plugin>
-		<groupId>org.eclipse.tycho</groupId>
-		<artifactId>tycho-maven-plugin</artifactId>
-		<version>${tycho.version}</version>
-		<extensions>true</extensions>
-	   </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
+        <plugin>
+         <groupId>org.eclipse.tycho.extras</groupId>
+         <artifactId>tycho-p2-extras-plugin</artifactId>
+         <version>${tycho.version}</version>
+        </plugin>
         <plugin>
          <groupId>org.eclipse.tycho</groupId>
          <artifactId>tycho-packaging-plugin</artifactId>
@@ -154,17 +143,17 @@
     		</execution>
           </executions>
         </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>  
+          <artifactId>tycho-versions-plugin</artifactId>  
+          <version>${tycho.version}</version>  
+        </plugin>     
         <plugin>   
             <groupId>org.apache.felix</groupId>
             <artifactId>maven-bundle-plugin</artifactId>
             <version>${felix.version}</version>
             <extensions>true</extensions>
         </plugin>
-        <plugin>
-          <groupId>org.eclipse.tycho</groupId>  
-          <artifactId>tycho-versions-plugin</artifactId>  
-          <version>${tycho.version}</version>  
-        </plugin>     
         <plugin>
     		<groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-install-plugin</artifactId>
@@ -308,5 +297,33 @@
 		  <osgi.arch>x86_64</osgi.arch>
 		</properties>
 	  </profile>
-  </profiles>
+	  <profile>
+	    <id>build-profile</id>
+		<activation>
+		  <file>
+			<exists>${basedir}/cybertete.target/cybertete.target.target</exists>
+		  </file>
+		</activation>
+		 <properties>
+		  <target.file>${basedir}/cybertete.root.target</target.file>
+		</properties>
+		<modules>
+			<module>cybertete.rcp</module>
+			<module>au.com.cybersearch2.cybertete.feature</module>
+			<module>cybertete.product</module>
+			<module>cybertete.update</module>
+		</modules>
+	  </profile> 
+	  <profile>
+	    <id>new-install-profile</id>
+		<activation>
+		  <file>
+			<missing>${basedir}/cybertete.root.target</missing>
+		  </file>
+		</activation>
+		<modules>
+			<module>repo</module>
+		</modules>
+	  </profile>
+	</profiles>
   </project>
