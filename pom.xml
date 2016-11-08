@@ -12,8 +12,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <eclipse-repo.url>http://download.eclipse.org/eclipse/updates/4.6</eclipse-repo.url>
     <third-party-repo>${project.baseUri}p2/</third-party-repo>
-    <control-factory-repo.url>http://pdrone.cybersearch2.local/p2/control-factory/</control-factory-repo.url>
-    <statusbar-repo.url>http://pdrone.cybersearch2.local/p2/statusbar/</statusbar-repo.url>
+    <statusbar-repo.url>https://dl.bintray.com/andrew-bowley/generic/Statusbar/V1.2.3/</statusbar-repo.url>
     <!-- Skip the deployment here, submodules can override this property -->
     <maven.deploy.skip>true</maven.deploy.skip>
   </properties>
@@ -301,7 +300,7 @@
 	    <id>build-profile</id>
 		<activation>
 		  <file>
-			<exists>${basedir}/cybertete.target/cybertete.target.target</exists>
+			<exists>${basedir}/cybertete.root.target</exists>
 		  </file>
 		</activation>
 		 <properties>

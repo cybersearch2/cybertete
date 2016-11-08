@@ -132,10 +132,6 @@
                       <name>repo_loc</name>
                       <value>${project.baseUri}</value>
                     </parameter>
-                    <parameter>
-                      <name>control-factory-repo-url</name>
-                      <value>${control-factory-repo.url}</value>
-                    </parameter>
                      <parameter>
                       <name>statusbar-repo-url</name>
                       <value>${statusbar-repo.url}</value>
