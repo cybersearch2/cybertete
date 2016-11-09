@@ -22,6 +22,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Collections;
+
+import org.eclipse.core.databinding.observable.Realm;
+import org.eclipse.core.databinding.observable.set.IObservableSet;
 import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -62,10 +66,29 @@ public class ContactsViewTest
         when(controlFactory.getDefaultLayout()).thenReturn(defaultLayout);
         ImageFactory imageFactory = mock(ImageFactory.class);
         EMenuService menuService = mock(EMenuService.class);
-         underTest.postConstruct(parent, controlFactory, imageFactory, menuService);
+        final ContactsContentProvider contentProvider = mock(ContactsContentProvider.class);
+        @SuppressWarnings("rawtypes")
+        IObservableSet knownElements = mock(IObservableSet.class);
+        when(knownElements.iterator()).thenReturn(Collections.emptyIterator());
+        Realm realm = mock(Realm.class);
+        when(realm.isCurrent()).thenReturn(true);
+        when(knownElements.getRealm()).thenReturn(realm);
+        when(contentProvider.getKnownElements()).thenReturn(knownElements);
+        ContactsContentProviderFactory contactsContentProviderFactory = 
+            new ContactsContentProviderFactory(){
+    
+                @Override
+                public ContactsContentProvider instance()
+                {
+                    return contentProvider;
+                }};
+
+        underTest.postConstruct(parent, controlFactory, imageFactory, menuService, contactsContentProviderFactory);
         verify(menuService).registerContextMenu(control, "contacts.popup");
         verify(contactsViewer).setProviders(isA(ContactsContentProvider.class),isA(ContactsLabelProvider.class));
         verify(defaultLayout).generateLayout(parent);
+        verify(contactsViewer).setProviders(eq(contentProvider),
+                isA(ContactsLabelProvider.class));
         verify(contactsViewer).setInput(root);
     }
     

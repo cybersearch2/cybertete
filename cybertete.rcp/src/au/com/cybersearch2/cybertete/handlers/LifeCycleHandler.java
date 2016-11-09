@@ -66,6 +66,8 @@ import au.com.cybersearch2.cybertete.smack.SmackChatService;
 import au.com.cybersearch2.cybertete.status.ConnectionStatus;
 import au.com.cybersearch2.cybertete.status.CyberteteStatusBar;
 import au.com.cybersearch2.cybertete.status.SecurityStatus;
+import au.com.cybersearch2.cybertete.views.ContactsContentProvider;
+import au.com.cybersearch2.cybertete.views.ContactsContentProviderFactory;
 import au.com.cybersearch2.dialogs.SyncErrorDialog;
 import au.com.cybersearch2.dialogs.SyncInfoDialog;
 import au.com.cybersearch2.dialogs.SyncQuestionDialog;
@@ -143,6 +145,14 @@ public class LifeCycleHandler
         put(Contribution.class, getContribution());
         // Install handler to change perspective
         put(ChangePerspectiveHandler.class);
+        put(ContactsContentProviderFactory.class, 
+            new ContactsContentProviderFactory(){
+
+                @Override
+                public ContactsContentProvider instance()
+                {
+                    return new ContactsContentProvider();
+                }});
         // Install chat service
         installChatService();
     }

@@ -61,10 +61,11 @@ public class ContactsView
         Composite parent,
         ControlFactory controlFactory,
         ImageFactory imageFactory,
-        EMenuService menuService) 
+        EMenuService menuService,
+        ContactsContentProviderFactory contentProviderFactory) 
     {
         menuService.registerContextMenu(contactsViewer.getControl(), "contacts.popup");
-        ContactsContentProvider contentProvider = new ContactsContentProvider();
+        ContactsContentProvider contentProvider = contentProviderFactory.instance();
         contactsViewer.setProviders(contentProvider,
                                     new ContactsLabelProvider(contentProvider, imageFactory));
         contactsViewer.setInput(contactsTree.getRootContactGroup());
