@@ -26,11 +26,15 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import au.com.cybersearch2.controls.ControlFactory;
 import au.com.cybersearch2.controls.DefaultGridData;
@@ -44,6 +48,29 @@ import au.com.cybersearch2.dialogs.DialogHandler;
  * @author Andrew Bowley
  * 11 May 2016
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Image.class})
+@PowerMockIgnore(
+{
+    "org.eclipse.swt.graphics.Drawable", 
+    "org.eclipse.swt.graphics.Color", 
+    "org.eclipse.swt.graphics.GC",
+    "org.eclipse.swt.graphics.GCData",
+    "org.eclipse.swt.graphics.Device", 
+    "org.eclipse.swt.graphics.DeviceData", 
+    "org.eclipse.swt.graphics.Rectangle", 
+    "org.eclipse.swt.graphics.Region", 
+    "org.eclipse.swt.graphics.ImageData",
+    "org.eclipse.swt.graphics.ImageDataProvider",
+    "org.eclipse.swt.graphics.ImageFileNameProvider",
+    "org.eclipse.swt.graphics.Cursor", 
+    "org.eclipse.swt.graphics.TextLayout", 
+    "org.eclipse.swt.graphics.Point", 
+    "org.eclipse.swt.graphics.RGB", 
+    "org.eclipse.swt.graphics.RGBA", 
+    "org.eclipse.swt.graphics.Font", 
+    "org.eclipse.swt.graphics.FontMetrics"
+})
 public class PresenceControlsTest
 {
     Presence[] presences = new Presence[] { Presence.online, Presence.away, Presence.dnd };
@@ -54,12 +81,11 @@ public class PresenceControlsTest
     {
         ControlFactory controlFactory = mock(ControlFactory.class);
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image online = new Image(display, "icons/online.gif");
+        Image online = PowerMockito.mock(Image.class);
         images[0] = online;
-        Image away = new Image(display, "icons/away.gif");
+        Image away = PowerMockito.mock(Image.class);
         images[1] = away;
-        Image dnd = new Image(display, "icons/dnd.gif");
+        Image dnd = PowerMockito.mock(Image.class);
         images[2] = dnd;
         PresenceControls underTest = new  PresenceControls(controlFactory, imageFactory);
         Composite parent = mock(Composite.class);

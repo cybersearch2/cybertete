@@ -28,6 +28,7 @@ public class ContactsRepositoryFactory
 	
 	    CONTACTS_REPOSITORY = new IContactsRepository(){
 
+            @SuppressWarnings({"unchecked", "rawtypes"})
             @Override
             public IObservableList getAllContacts()
             {

@@ -52,7 +52,7 @@ public class ContactsLabelProvider extends ObservableMapLabelProvider
      * @param attributeMaps Attribute mapping for fields: name, user, presence
      * @param imageFactory Image factory with resource manager
      */
-    ContactsLabelProvider(IObservableMap[] attributeMaps, ImageFactory imageFactory)
+    ContactsLabelProvider(@SuppressWarnings("rawtypes") IObservableMap[] attributeMaps, ImageFactory imageFactory)
     {
         super(attributeMaps);
         this.imageFactory = imageFactory;
@@ -110,6 +110,7 @@ public class ContactsLabelProvider extends ObservableMapLabelProvider
      * @param contentProvider ObservableListTreeContentProvider object
      * @return IObservableMap arrary
      */
+    @SuppressWarnings({"rawtypes", "unchecked"})
     static IObservableMap[] getAttributeMaps(ObservableListTreeContentProvider contentProvider)
     {
         IObservableSet knownElements = contentProvider.getKnownElements();

@@ -24,11 +24,15 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 import org.junit.Before;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import au.com.cybersearch2.controls.CustomDialog;
 import au.com.cybersearch2.controls.ImageFactory;
@@ -43,6 +47,31 @@ import au.com.cybersearch2.statusbar.StatusItem;
  * @author Andrew Bowley
  * 25 Mar 2016
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Image.class})
+@PowerMockIgnore(
+{
+    "org.eclipse.swt.graphics.Drawable", 
+    "org.eclipse.swt.graphics.Color", 
+    "org.eclipse.swt.graphics.GC",
+    "org.eclipse.swt.graphics.GCData",
+    "org.eclipse.swt.graphics.Device", 
+    "org.eclipse.swt.graphics.DeviceData", 
+    "org.eclipse.swt.graphics.Font", 
+    "org.eclipse.swt.graphics.ImageData", 
+    "org.eclipse.swt.graphics.Rectangle", 
+    "org.eclipse.swt.graphics.Region", 
+    "org.eclipse.swt.graphics.ImageData",
+    "org.eclipse.swt.graphics.ImageDataProvider",
+    "org.eclipse.swt.graphics.ImageFileNameProvider",
+    "org.eclipse.swt.graphics.Cursor", 
+    "org.eclipse.swt.graphics.TextLayout", 
+    "org.eclipse.swt.graphics.Point", 
+    "org.eclipse.swt.graphics.RGB", 
+    "org.eclipse.swt.graphics.RGBA", 
+    "org.eclipse.swt.graphics.Font", 
+    "org.eclipse.swt.graphics.FontMetrics"
+})
 public class PresenceStatusTest
 {
     static final String TEST_MESSAGE = "Testing 123";
@@ -61,19 +90,9 @@ public class PresenceStatusTest
     public void test_constructor()
     {
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image offline = new Image(display, "icons/offline.gif");
+        Image offline = PowerMockito.mock(Image.class);
         when(imageFactory.getMappedImage(Presence.offline)).thenReturn(offline);
-        //ControlFactory controlFactory = mock(ControlFactory.class);
-        //Composite parent = mock(Composite.class);
-        //Composite composite = mock(Composite.class);
-        //when(controlFactory.compositeInstance(parent)).thenReturn(composite);
-        //ArgumentCaptor<AccessibleControlAdapter> adapterCaptor = ArgumentCaptor.forClass(AccessibleControlAdapter.class);
-        //Accessible accessible = mock(Accessible.class);
-        //when(composite.getAccessible()).thenReturn(accessible);
         CLabel label = mock(CLabel.class);
-        //ItemConfiguration spec = new ItemConfiguration(offline, "Offline", 18);
-        //when(controlFactory.customLabelInstance(eq(composite), eq(spec))).thenReturn(label);
         PresenceStatus underTest = new PresenceStatus(imageFactory);
         EventBroker eventBroker = mock(EventBroker.class);
         underTest.eventBroker = eventBroker;
@@ -107,11 +126,10 @@ public class PresenceStatusTest
     public void test_presenceHandler()
     {
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image offline = new Image(display, "icons/offline.gif");
-        Image online = new Image(display, "icons/online.gif");
-        Image away = new Image(display, "icons/away.gif");
-        Image dnd = new Image(display, "icons/dnd.gif");
+        Image offline = PowerMockito.mock(Image.class);
+        Image online = PowerMockito.mock(Image.class);
+        Image away = PowerMockito.mock(Image.class);
+        Image dnd = PowerMockito.mock(Image.class);
         when(imageFactory.getMappedImage(Presence.offline)).thenReturn(offline);
         when(imageFactory.getMappedImage(Presence.online)).thenReturn(online);
         when(imageFactory.getMappedImage(Presence.away)).thenReturn(away);

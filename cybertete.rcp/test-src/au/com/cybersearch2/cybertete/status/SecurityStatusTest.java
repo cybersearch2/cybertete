@@ -34,7 +34,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -44,6 +43,11 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import au.com.cybersearch2.controls.ControlFactory;
 import au.com.cybersearch2.controls.ControlTip;
@@ -58,6 +62,31 @@ import au.com.cybersearch2.statusbar.StatusItem;
  * @author Andrew Bowley
  * 25 Mar 2016
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Image.class})
+@PowerMockIgnore(
+{
+    "org.eclipse.swt.graphics.Drawable", 
+    "org.eclipse.swt.graphics.Color", 
+    "org.eclipse.swt.graphics.GC",
+    "org.eclipse.swt.graphics.GCData",
+    "org.eclipse.swt.graphics.Device", 
+    "org.eclipse.swt.graphics.DeviceData", 
+    "org.eclipse.swt.graphics.Font", 
+    "org.eclipse.swt.graphics.ImageData", 
+    "org.eclipse.swt.graphics.Rectangle", 
+    "org.eclipse.swt.graphics.Region", 
+    "org.eclipse.swt.graphics.ImageData",
+    "org.eclipse.swt.graphics.ImageDataProvider",
+    "org.eclipse.swt.graphics.ImageFileNameProvider",
+    "org.eclipse.swt.graphics.Cursor", 
+    "org.eclipse.swt.graphics.TextLayout", 
+    "org.eclipse.swt.graphics.Point", 
+    "org.eclipse.swt.graphics.RGB", 
+    "org.eclipse.swt.graphics.RGBA", 
+    "org.eclipse.swt.graphics.Font", 
+    "org.eclipse.swt.graphics.FontMetrics"
+})
 public class SecurityStatusTest
 {
     static final String  WARN_TOOL_TIP = "WARNING: The connection is unsecure!";
@@ -79,8 +108,7 @@ public class SecurityStatusTest
     public void test_postConstruct()
     {
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image blank = new Image(display, "icons/blank.gif");
+        Image blank = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/blank.gif")).thenReturn(blank);
         ControlFactory controlFactory = mock(ControlFactory.class);
         SecurityStatus underTest = new SecurityStatus(imageFactory);
@@ -116,10 +144,9 @@ public class SecurityStatusTest
         when(principal.getName()).thenReturn("CN=" + TEST_JID);
         when(cert.getSubjectDN()).thenReturn(principal);
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image yellow = new Image(display, "icons/yellow_circle.gif");
+        Image yellow = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/yellow_circle.gif")).thenReturn(yellow);
-        Image blank = new Image(display, "icons/blank.gif");
+        Image blank = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/blank.gif")).thenReturn(blank);
         ControlFactory controlFactory = mock(ControlFactory.class);
         SecurityStatus underTest = new SecurityStatus(imageFactory);
@@ -158,10 +185,9 @@ public class SecurityStatusTest
     {
         Composite parent = mock(Composite.class);
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image blank = new Image(display, "icons/blank.gif");
-        Image unsecure = new Image(display, "icons/unsecure.gif");
-        Image secure = new Image(display, "icons/secure.gif");
+        Image blank = PowerMockito.mock(Image.class);
+        Image unsecure = PowerMockito.mock(Image.class);
+        Image secure = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/blank.gif")).thenReturn(blank);
         when(imageFactory.getImage("icons/unsecure.gif")).thenReturn(unsecure);
         when(imageFactory.getImage("icons/secure.gif")).thenReturn(secure);

@@ -16,21 +16,21 @@
 package au.com.cybersearch2.cybertete.views;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
-import org.eclipse.core.databinding.property.list.IListProperty;
-import org.eclipse.core.databinding.property.list.MultiListProperty;
-import org.eclipse.jface.databinding.viewers.ObservableListTreeContentProvider;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import au.com.cybersearch2.controls.ImageFactory;
 import au.com.cybersearch2.cybertete.model.ContactEntry;
 import au.com.cybersearch2.cybertete.model.ContactGroup;
-import au.com.cybersearch2.cybertete.model.ContactItem;
 import au.com.cybersearch2.cybertete.model.Presence;
 
 /**
@@ -38,10 +38,35 @@ import au.com.cybersearch2.cybertete.model.Presence;
  * @author Andrew Bowley
  * 4 May 2016
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Image.class})
+@PowerMockIgnore(
+{
+    "org.eclipse.swt.graphics.Drawable", 
+    "org.eclipse.swt.graphics.Color", 
+    "org.eclipse.swt.graphics.GC",
+    "org.eclipse.swt.graphics.GCData",
+    "org.eclipse.swt.graphics.Device", 
+    "org.eclipse.swt.graphics.Font", 
+    "org.eclipse.swt.graphics.ImageData", 
+    "org.eclipse.swt.graphics.Rectangle", 
+    "org.eclipse.swt.graphics.Region", 
+    "org.eclipse.swt.graphics.ImageData",
+    "org.eclipse.swt.graphics.ImageDataProvider",
+    "org.eclipse.swt.graphics.ImageFileNameProvider",
+    "org.eclipse.swt.graphics.Cursor", 
+    "org.eclipse.swt.graphics.TextLayout", 
+    "org.eclipse.swt.graphics.Point", 
+    "org.eclipse.swt.graphics.RGB", 
+    "org.eclipse.swt.graphics.RGBA", 
+    "org.eclipse.swt.graphics.Font", 
+    "org.eclipse.swt.graphics.FontMetrics"
+})
 public class ContactsLabelProviderTest
 {
     static final String TEST_JID = "mickymouse@disney.com";
 
+    @SuppressWarnings("rawtypes")
     @Test
     public void test_getText_entry()
     {
@@ -56,6 +81,7 @@ public class ContactsLabelProviderTest
         assertThat(underTest.getText(contactEntry)).isEqualTo("micky (" + TEST_JID + ")");
     }
 
+    @SuppressWarnings("rawtypes")
     @Test
     public void test_getText_group()
     {
@@ -69,6 +95,7 @@ public class ContactsLabelProviderTest
         assertThat(underTest.getText(contactGroup)).isEqualTo("Colleagues");
     }
     
+    @SuppressWarnings("rawtypes")
     @Test
     public void test_getImage_entry()
     {
@@ -78,13 +105,13 @@ public class ContactsLabelProviderTest
         when(presenceMap.get(contactEntry)).thenReturn(Presence.online);
         IObservableMap[] attributeMaps = new IObservableMap[] { userMap, presenceMap };
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image online = new Image(display, "icons/online.gif");
+        Image online = PowerMockito.mock(Image.class);
         when(imageFactory.getMappedImage(Presence.online)).thenReturn(online);
         ContactsLabelProvider underTest = new ContactsLabelProvider(attributeMaps, imageFactory);
         assertThat(underTest.getImage(contactEntry)).isEqualTo(online);
     }
 
+    @SuppressWarnings("rawtypes")
     @Test
     public void test_getImage_group()
     {
@@ -93,26 +120,10 @@ public class ContactsLabelProviderTest
         IObservableMap presenceMap = mock(IObservableMap.class);
         IObservableMap[] attributeMaps = new IObservableMap[] { userMap, presenceMap };
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image groups = new Image(display, "icons/groups.gif");
+        Image groups = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/groups.gif")).thenReturn(groups);
         ContactsLabelProvider underTest = new ContactsLabelProvider(attributeMaps, imageFactory);
         assertThat(underTest.getImage(contactGroup)).isEqualTo(groups);
     }
     
-    @Test
-    public void test_getAttributeMaps()
-    {
-        IListProperty childrenProperty = 
-                new MultiListProperty(
-                    new IListProperty[] 
-                    { 
-                        BeanProperties.list(ContactItem.GROUP_LIST_NAME),
-                        BeanProperties.list(ContactItem.ENTRY_LIST_NAME) 
-                    });
-
-        ObservableListTreeContentProvider contentProvider = 
-                new ObservableListTreeContentProvider(childrenProperty.listFactory(), null);
-         assertThat(ContactsLabelProvider.getAttributeMaps(contentProvider)).hasSize(2);
-    }
 }

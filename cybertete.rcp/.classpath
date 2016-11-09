@@ -22,5 +22,5 @@
 	<classpathentry kind="var" path="M2_REPO/org/objenesis/objenesis/2.2/objenesis-2.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="var" path="M2_REPO/com/github/marschall/memoryfilesystem/0.8.0/memoryfilesystem-0.8.0.jar"/>
-	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="output" path="target/test-classes"/>
 </classpath>

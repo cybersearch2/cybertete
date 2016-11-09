@@ -28,6 +28,7 @@ import au.com.cybersearch2.cybertete.model.ContactItem;
  * @author Andrew Bowley
  * 20 May 2016
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ContactsContentProvider extends ObservableListTreeContentProvider
 {
     static IListProperty childrenProperty;

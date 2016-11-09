@@ -33,7 +33,6 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.junit.Before;
@@ -41,6 +40,11 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import au.com.cybersearch2.controls.ControlFactory;
 import au.com.cybersearch2.controls.ImageFactory;
@@ -55,6 +59,31 @@ import au.com.cybersearch2.statusbar.StatusItem;
  * @author Andrew Bowley
  * 24 Mar 2016
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Image.class})
+@PowerMockIgnore(
+{
+    "org.eclipse.swt.graphics.Drawable", 
+    "org.eclipse.swt.graphics.Color", 
+    "org.eclipse.swt.graphics.GC",
+    "org.eclipse.swt.graphics.GCData",
+    "org.eclipse.swt.graphics.Device", 
+    "org.eclipse.swt.graphics.DeviceData", 
+    "org.eclipse.swt.graphics.Font", 
+    "org.eclipse.swt.graphics.ImageData", 
+    "org.eclipse.swt.graphics.Rectangle", 
+    "org.eclipse.swt.graphics.Region", 
+    "org.eclipse.swt.graphics.ImageData",
+    "org.eclipse.swt.graphics.ImageDataProvider",
+    "org.eclipse.swt.graphics.ImageFileNameProvider",
+    "org.eclipse.swt.graphics.Cursor", 
+    "org.eclipse.swt.graphics.TextLayout", 
+    "org.eclipse.swt.graphics.Point", 
+    "org.eclipse.swt.graphics.RGB", 
+    "org.eclipse.swt.graphics.RGBA", 
+    "org.eclipse.swt.graphics.Font", 
+    "org.eclipse.swt.graphics.FontMetrics"
+})
 public class ConnectionStatusTest
 {
     static final String TEST_MESSAGE = "Testing 123";
@@ -75,8 +104,7 @@ public class ConnectionStatusTest
     public void test_postConstruct()
     {
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image yellow = new Image(display, "icons/yellow_circle.gif");
+        Image yellow = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/yellow_circle.gif")).thenReturn(yellow);
         ControlFactory controlFactory = mock(ControlFactory.class);
         ConnectionStatus underTest = new ConnectionStatus(imageFactory);
@@ -115,10 +143,9 @@ public class ConnectionStatusTest
         when(principal.getName()).thenReturn("CN=" + TEST_JID);
         when(cert.getSubjectDN()).thenReturn(principal);
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image yellow = new Image(display, "icons/yellow_circle.gif");
+        Image yellow = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/yellow_circle.gif")).thenReturn(yellow);
-        Image blank = new Image(display, "icons/blank.gif");
+        Image blank = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/blank.gif")).thenReturn(blank);
         ControlFactory controlFactory = mock(ControlFactory.class);
         ConnectionStatus underTest = new ConnectionStatus(imageFactory);
@@ -177,8 +204,7 @@ public class ConnectionStatusTest
         when(controlFactory.menuItemInstance(menu1, SWT.PUSH)).thenReturn(menuItem1);
         when(controlFactory.menuItemInstance(menu2, SWT.PUSH)).thenReturn(menuItem2, menuItem3);
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image yellow = new Image(display, "icons/yellow_circle.gif");
+        Image yellow = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/yellow_circle.gif")).thenReturn(yellow);
         ConnectionStatus underTest = new ConnectionStatus(imageFactory);
         underTest.controlFactory = controlFactory;
@@ -215,14 +241,13 @@ public class ConnectionStatusTest
     public void test_comms_handlers()
     {
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Display display = mock(Display.class);
-        Image yellow = new Image(display, "icons/yellow_circle.gif");
+        Image yellow = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/yellow_circle.gif")).thenReturn(yellow);
-        Image green = new Image(display, "icons/green_circle.gif");
+        Image green = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/green_circle.gif")).thenReturn(green);
-        Image black = new Image(display, "icons/black_circle.gif");
+        Image black = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/black_circle.gif")).thenReturn(black);
-        Image red = new Image(display, "icons/red_circle.gif");
+        Image red = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/red_circle.gif")).thenReturn(red);
         ControlFactory controlFactory = mock(ControlFactory.class);
         ConnectionStatus underTest = new ConnectionStatus(imageFactory);
