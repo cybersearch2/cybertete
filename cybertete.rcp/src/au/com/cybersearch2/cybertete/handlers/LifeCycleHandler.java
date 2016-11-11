@@ -33,6 +33,7 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.equinox.security.storage.ISecurePreferences;
 import org.eclipse.equinox.security.storage.SecurePreferencesFactory;
+import org.osgi.framework.Bundle;
 
 import au.com.cybersearch2.controls.ControlFactory;
 import au.com.cybersearch2.controls.ImageFactory;
@@ -122,8 +123,8 @@ public class LifeCycleHandler
     {
         // Install statically-derived objects
         installStatics();
-        ResourceTools resourceTools = new ResourceTools();
-        resourceTools.setResourceBundle(Activator.getBundle());
+        put(Bundle.class, Activator.getBundle());
+        ResourceTools resourceTools = make(ResourceTools.class);
         put(ResourceTools.class, resourceTools);
         // Install image and SWT widget factories
         ImageFactory imageFactory = make(ImageFactory.class);

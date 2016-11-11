@@ -156,6 +156,10 @@
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
    </configurations>
 
+   <repositories>
+      <repository location="file:/opt/git/cybertete/cybertete.update/target/repository" enabled="true" />
+   </repositories>
+
    <preferencesInfo>
       <targetfile overwrite="false"/>
    </preferencesInfo>

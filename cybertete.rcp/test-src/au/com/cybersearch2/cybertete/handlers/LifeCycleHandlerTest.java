@@ -34,10 +34,14 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.equinox.security.storage.ISecurePreferences;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 
 import au.com.cybersearch2.controls.ControlFactory;
 import au.com.cybersearch2.controls.ImageFactory;
 import au.com.cybersearch2.controls.PlatformTools;
+import au.com.cybersearch2.controls.ResourceTools;
+import au.com.cybersearch2.cybertete.Activator;
 import au.com.cybersearch2.cybertete.GlobalProperties;
 import au.com.cybersearch2.cybertete.dialogs.LoginDialog;
 import au.com.cybersearch2.cybertete.model.ChatAgent;
@@ -216,11 +220,17 @@ public class LifeCycleHandlerTest
     }
  
     @Test
-    public void test_onPostContextCreate()
+    public void test_onPostContextCreate() throws Exception
     {
+        BundleContext bundleContext = mock(BundleContext.class);
+        Bundle bundle = mock(Bundle.class);
+        when(bundleContext.getBundle()).thenReturn(bundle);
+        Activator activator = new Activator();
+        activator.start(bundleContext);
         List<String> args = new ArrayList<String>();
         for (String arg: COMMAND_LINE_ARGS)
             args.add(arg);
+        ResourceTools resourceTools = mock(ResourceTools.class);
         ImageFactory imageFactory = mock(ImageFactory.class);
         PlatformTools platformTools = mock(PlatformTools.class);
         ChangePerspectiveHandler changePerspectiveHandler = mock(ChangePerspectiveHandler.class);
@@ -276,6 +286,7 @@ public class LifeCycleHandlerTest
         Logger logger = mock(Logger.class);
         when(loggerProvider.getClassLogger(LifeCycleHandler.class)).thenReturn(logger );
         underTest.postConstruct(loggerProvider);
+        when(injectionFactory.make(ResourceTools.class)).thenReturn(resourceTools);
         when(injectionFactory.make(ImageFactory.class)).thenReturn(imageFactory);
         when(injectionFactory.make(PlatformTools.class)).thenReturn(platformTools);
         when(injectionFactory.make(ApplicationModel.class)).thenReturn(applicationModel);
@@ -306,6 +317,7 @@ public class LifeCycleHandlerTest
         when(injectionFactory.make(LoginDialog.class)).thenReturn(loginDialog);
         underTest.onPostContextCreate(args);
         verify(logger).info("New installation of Cybertete");
+        verify(workbenchContext).set(Bundle.class, bundle);
         verify(platformTools).setDefaultImages(Collections.singletonList("icons/chat.gif"));
         verify(chatService).addChatConnectionListener(communicationsState);
         verify(chatService).addNetworkListener(communicationsState);

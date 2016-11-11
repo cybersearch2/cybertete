@@ -1,4 +1,4 @@
 instructions.configure=\
-    addRepository(type:0,location:file${#58}/C${#58}/target/repository);\
-    addRepository(type:1,location:file${#58}/C${#58}/target/repository/);
+    addRepository(type:0,location:file${#58}/opt/git/cybertete/cybertete.update/target/repository);\
+    addRepository(type:1,location:file${#58}/opt/git/cybertete/cybertete.update/target/repository);
 instructions.configure=org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/eclipsec.exe);    
