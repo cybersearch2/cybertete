@@ -26,15 +26,11 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import au.com.cybersearch2.controls.ControlFactory;
 import au.com.cybersearch2.controls.DefaultGridData;
@@ -48,29 +44,6 @@ import au.com.cybersearch2.dialogs.DialogHandler;
  * @author Andrew Bowley
  * 11 May 2016
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Image.class})
-@PowerMockIgnore(
-{
-    "org.eclipse.swt.graphics.Drawable", 
-    "org.eclipse.swt.graphics.Color", 
-    "org.eclipse.swt.graphics.GC",
-    "org.eclipse.swt.graphics.GCData",
-    "org.eclipse.swt.graphics.Device", 
-    "org.eclipse.swt.graphics.DeviceData", 
-    "org.eclipse.swt.graphics.Rectangle", 
-    "org.eclipse.swt.graphics.Region", 
-    "org.eclipse.swt.graphics.ImageData",
-    "org.eclipse.swt.graphics.ImageDataProvider",
-    "org.eclipse.swt.graphics.ImageFileNameProvider",
-    "org.eclipse.swt.graphics.Cursor", 
-    "org.eclipse.swt.graphics.TextLayout", 
-    "org.eclipse.swt.graphics.Point", 
-    "org.eclipse.swt.graphics.RGB", 
-    "org.eclipse.swt.graphics.RGBA", 
-    "org.eclipse.swt.graphics.Font", 
-    "org.eclipse.swt.graphics.FontMetrics"
-})
 public class PresenceControlsTest
 {
     Presence[] presences = new Presence[] { Presence.online, Presence.away, Presence.dnd };
@@ -81,37 +54,50 @@ public class PresenceControlsTest
     {
         ControlFactory controlFactory = mock(ControlFactory.class);
         ImageFactory imageFactory = mock(ImageFactory.class);
-        Image online = PowerMockito.mock(Image.class);
-        images[0] = online;
-        Image away = PowerMockito.mock(Image.class);
-        images[1] = away;
-        Image dnd = PowerMockito.mock(Image.class);
-        images[2] = dnd;
-        PresenceControls underTest = new  PresenceControls(controlFactory, imageFactory);
-        Composite parent = mock(Composite.class);
-        Composite composite = mock(Composite.class);
-        when(controlFactory.compositeInstance(parent)).thenReturn(composite);
-        Group group = mock(Group.class);
-        when(controlFactory.groupInstance(composite, SWT.NONE)).thenReturn(group);
-        DefaultLayout defaultLayout = mock(DefaultLayout.class);
-        when(controlFactory.getDefaultLayout()).thenReturn(defaultLayout );
-        DefaultGridData defaultGridData = mock(DefaultGridData.class);
-        when(controlFactory.getDefaultGridData()).thenReturn(defaultGridData);
-        when(defaultGridData.grab(true, true)).thenReturn(defaultGridData);
-        Button button1 = mock(Button.class);
-        Button button2 = mock(Button.class);
-        Button button3 = mock(Button.class);
-        when(imageFactory.getMappedImage(Presence.online)).thenReturn(online);
-        when(imageFactory.getMappedImage(Presence.away)).thenReturn(away);
-        when(imageFactory.getMappedImage(Presence.dnd)).thenReturn(dnd);
-        when(controlFactory.buttonInstance(isA(Group.class), eq(SWT.RADIO))).thenReturn(button1, button2, button3);
-        assertThat(underTest.createControls(parent, mock(DialogHandler.class))).isEqualTo(composite);
-        verify(composite).setLayout(isA(GridLayout.class));
-        verify(defaultLayout).applyTo(group);
-        verify(defaultGridData).applyTo(group);
-        verifyButton(underTest, button1, 0, imageFactory);
-        verifyButton(underTest, button2, 1, imageFactory);
-        verifyButton(underTest, button3, 2, imageFactory);
+        Display display = mock(Display.class);
+        try
+        {
+            Image online = new Image(display, "icons/online.gif");
+            images[0] = online;
+            Image away = new Image(display, "icons/away.gif");
+            images[1] = away;
+            Image dnd = new Image(display, "icons/dnd.gif");
+            images[2] = dnd;
+            PresenceControls underTest = new  PresenceControls(controlFactory, imageFactory);
+            Composite parent = mock(Composite.class);
+            Composite composite = mock(Composite.class);
+            when(controlFactory.compositeInstance(parent)).thenReturn(composite);
+            Group group = mock(Group.class);
+            when(controlFactory.groupInstance(composite, SWT.NONE)).thenReturn(group);
+            DefaultLayout defaultLayout = mock(DefaultLayout.class);
+            when(controlFactory.getDefaultLayout()).thenReturn(defaultLayout );
+            DefaultGridData defaultGridData = mock(DefaultGridData.class);
+            when(controlFactory.getDefaultGridData()).thenReturn(defaultGridData);
+            when(defaultGridData.grab(true, true)).thenReturn(defaultGridData);
+            Button button1 = mock(Button.class);
+            Button button2 = mock(Button.class);
+            Button button3 = mock(Button.class);
+            when(imageFactory.getMappedImage(Presence.online)).thenReturn(online);
+            when(imageFactory.getMappedImage(Presence.away)).thenReturn(away);
+            when(imageFactory.getMappedImage(Presence.dnd)).thenReturn(dnd);
+            when(controlFactory.buttonInstance(isA(Group.class), eq(SWT.RADIO))).thenReturn(button1, button2, button3);
+            assertThat(underTest.createControls(parent, mock(DialogHandler.class))).isEqualTo(composite);
+            verify(composite).setLayout(isA(GridLayout.class));
+            verify(defaultLayout).applyTo(group);
+            verify(defaultGridData).applyTo(group);
+            verifyButton(underTest, button1, 0, imageFactory);
+            verifyButton(underTest, button2, 1, imageFactory);
+            verifyButton(underTest, button3, 2, imageFactory);
+        }
+        finally
+        {
+            if (images[0] != null)
+                images[0].dispose();
+            if (images[1] != null)
+                images[1].dispose();
+            if (images[2] != null)
+                images[2].dispose();
+        }
     }
 
     private void verifyButton(PresenceControls underTest, Button button, int index, ImageFactory imageFactory)

@@ -63,6 +63,8 @@ import au.com.cybersearch2.statusbar.StatusItem;
 @PrepareForTest({Image.class})
 @PowerMockIgnore(
 {
+    "org.eclipse.swt.internal.win32.OS",
+    "org.eclipse.swt.graphics.PaletteData", 
     "org.eclipse.swt.graphics.Drawable", 
     "org.eclipse.swt.graphics.Color", 
     "org.eclipse.swt.graphics.GC",
@@ -121,7 +123,7 @@ public class ConnectionStatusTest
         verify(statusItem).setLabelListener(underTest.labelListener);
         assertThat(underTest.certificateChain).isEmpty();
         assertThat(underTest.logger).isEqualTo(logger);
-        CLabel label = mock (CLabel.class);
+        CLabel label = mock(CLabel.class);
         Menu menu = mock(Menu.class);
         when(controlFactory.menuInstance(label)).thenReturn(menu);
         MenuItem menuItem = mock(MenuItem.class);

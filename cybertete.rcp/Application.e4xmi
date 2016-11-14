@@ -38,6 +38,7 @@
       <children xsi:type="menu:Menu" xmi:id="_BsFs8H0wEeWBK7kde6p8WA" elementId="au.com.cybersearch2.cybertete.menu.help" label="Help">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_DkTLwH0wEeWBK7kde6p8WA" elementId="au.com.cybersearch2.cybertete.handledmenuitem.preferences" label="Preferences" command="_xjAHUH0gEeWBK7kde6p8WA"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_BvFR4Ig5EeWNWpDOertdKA" elementId="au.com.cybersearch2.cybertete.handledmenuitem.update" label="Update" command="_OOekEIg0EeWNWpDOertdKA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_fGlUcKodEeaFL4XqGS2WkQ" elementId="au.com.cybersearch2.cybertete.handledmenuitem.about" label="About" command="_5LPloKocEeaFL4XqGS2WkQ"/>
       </children>
     </mainMenu>
     <trimBars xmi:id="_ZyLXkHkcEeWAWZseg_ogqQ" elementId="au.com.cybersearch2.cybertete.trimbar.0">
@@ -55,6 +56,7 @@
   <handlers xmi:id="_vu-q4IKEEeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.handler.closeAllChats" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.handlers.CloseAllHandler" command="_pTenEIKEEeWlyq6M9BWvIQ"/>
   <handlers xmi:id="_5EtJsIK8EeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.handler.2" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.handlers.ChangePresenceHandler" command="_TxVZ0IK8EeWlyq6M9BWvIQ"/>
   <handlers xmi:id="_TWhb8Ig0EeWNWpDOertdKA" elementId="au.com.cybersearch2.cybertete.handler.3" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.handlers.UpdateHandler" command="_OOekEIg0EeWNWpDOertdKA"/>
+  <handlers xmi:id="_Ai5IoKodEeaFL4XqGS2WkQ" elementId="au.com.cybersearch2.cybertete.handler.about" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.handlers.AboutHandler" command="_5LPloKocEeaFL4XqGS2WkQ"/>
   <bindingTables xmi:id="_awz6kHiOEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.bindingtable.0" bindingContext="_c3AF2sjYEeSyMNYR5xypkQ">
     <bindings xmi:id="_bsAXgHiOEeWj07ma8Mq0_w" elementId="au.com.cybersearch2.cybertete.keybinding.0" keySequence="M1+Q" command="_ryj6cHiFEeWj07ma8Mq0_w">
       <tags>type:user</tags>
@@ -77,6 +79,7 @@
   <commands xmi:id="_pTenEIKEEeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.command.closeallchats" commandName="Close All Chats" category="_RGK0QHkdEeWAWZseg_ogqQ"/>
   <commands xmi:id="_TxVZ0IK8EeWlyq6M9BWvIQ" elementId="au.com.cybersearch2.cybertete.command.changeContactStatus" commandName="Change Contact Status" category="_RGK0QHkdEeWAWZseg_ogqQ"/>
   <commands xmi:id="_OOekEIg0EeWNWpDOertdKA" elementId="au.com.cybersearch2.cybertete.command.update" commandName="Update" category="_RGK0QHkdEeWAWZseg_ogqQ"/>
+  <commands xmi:id="_5LPloKocEeaFL4XqGS2WkQ" elementId="au.com.cybersearch2.cybertete.command.about" commandName="About" category="_RGK0QHkdEeWAWZseg_ogqQ"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

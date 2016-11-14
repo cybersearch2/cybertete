@@ -66,6 +66,7 @@ import au.com.cybersearch2.statusbar.StatusItem;
 @PrepareForTest({Image.class})
 @PowerMockIgnore(
 {
+    "org.eclipse.swt.internal.win32.OS",
     "org.eclipse.swt.graphics.Drawable", 
     "org.eclipse.swt.graphics.Color", 
     "org.eclipse.swt.graphics.GC",

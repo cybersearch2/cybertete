@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/au.com.cybersearch2.cybertete.feature_1.2.2.qualifier.jar" id="au.com.cybersearch2.cybertete.feature" version="1.2.2.qualifier">
+   <feature url="features/au.com.cybersearch2.cybertete.feature_1.3.2.qualifier.jar" id="au.com.cybersearch2.cybertete.feature" version="1.3.2.qualifier">
       <category name="cybertete"/>
    </feature>
    <category-def name="cybertete" label="Cybertete Chat Client">
