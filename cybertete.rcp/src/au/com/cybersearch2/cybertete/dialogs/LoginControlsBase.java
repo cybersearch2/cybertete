@@ -72,7 +72,7 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
     /** Principal for SSO or null if SSO not applicable */
     String gssapiPrincipal;
     /** Flag set true if login is pending and false if only applying changes */
-    volatile boolean isLoginPending;
+    protected volatile boolean isLoginPending;
     /** Flag set true if entry field keyed */
     volatile boolean isDirty;
 
@@ -258,7 +258,7 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
         {
             connectionError = ConnectionError.noError;
             if (isLoginPending)
-                onOkPressed();
+                login();
         }
         else if (loginStatus == LoginStatus.invalidPassword)
             passwordText.setFocus();
@@ -398,23 +398,22 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
     /**
      * Handle OK button pressed. Apply changes.
      */
-    protected boolean okPressed() 
+    protected void okPressed() 
     {
+        /*
         if (!isDirty && !loginData.getSessionDetails().isDirty())
             return true; // No configuration changes, so exit dialog
+        */
         // Set isLoginPending true to get login to proceed after changes applied
         isLoginPending = true;
         LoginConfig loginConfig = getLoginConfig(userSelector.getText());
         applyChanges(loginConfig);
-        return false;
     }
  
     /**
-     * Placeholder for customisation of response to OK button pressed
+     * Ultimate response to Login button pressed
      */
-    protected void onOkPressed()
-    {
-    }
+    protected abstract void login();
 
     /**
      * Returns listener for Single Signon button

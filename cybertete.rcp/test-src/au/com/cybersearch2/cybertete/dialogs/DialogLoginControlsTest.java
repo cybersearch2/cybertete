@@ -26,6 +26,8 @@ import java.util.List;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import au.com.cybersearch2.controls.ButtonControl;
+import au.com.cybersearch2.controls.TextControl;
 import au.com.cybersearch2.cybertete.handlers.ConfigNotifier;
 import au.com.cybersearch2.cybertete.handlers.LoginConfigEnsemble;
 import au.com.cybersearch2.cybertete.model.LoginBean;
@@ -41,9 +43,11 @@ import au.com.cybersearch2.dialogs.DialogHandler;
 public class DialogLoginControlsTest
 {
     static final String TEST_PASSWORD = "secret";
+    private static final String TEST_HOST = "google.talk";
+    static final String TEST_JID = "mickymouse@disney.com";
     
     @Test
-    public void test_onOkPressed()
+    public void test_login()
     {
         LoginData loginData = mock(LoginData.class); 
         SessionDetails sessionDetails = mock(SessionDetails.class);
@@ -55,7 +59,22 @@ public class DialogLoginControlsTest
         DialogHandler loginDialog = mock(DialogHandler.class);
         DialogLoginControls dialogLoginControls = new DialogLoginControls(loginData, configNotifier);
         dialogLoginControls.setDialogHandler(loginDialog);
-        dialogLoginControls.onOkPressed();
+        UserSelector userSelector = mock(UserSelector.class);
+        dialogLoginControls.userSelector = userSelector;
+        when(userSelector.getText()).thenReturn(TEST_JID);
+        TextControl hostText = mock(TextControl.class);
+        dialogLoginControls.hostText = hostText;
+        when(dialogLoginControls.hostText.getText()).thenReturn(TEST_HOST);
+        TextControl portText = mock(TextControl.class);
+        dialogLoginControls.portText = portText;
+        when(dialogLoginControls.portText.getText()).thenReturn("5222");
+        dialogLoginControls.usernameText = mock(TextControl.class);
+        dialogLoginControls.passwordText = mock(TextControl.class);
+        dialogLoginControls.autoLoginCheck = mock(ButtonControl.class);
+        when(dialogLoginControls.autoLoginCheck.getSelection()).thenReturn(false);
+        dialogLoginControls.plainSasl = mock(ButtonControl.class);
+        dialogLoginControls.login();
+        // Logon proceeds when the dialog is dismissed
         verify(loginDialog).dismissDialog();
     }
     

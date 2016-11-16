@@ -39,7 +39,7 @@ import au.com.cybersearch2.cybertete.service.LoginData;
  * 26 Nov 2015
      * @see au.com.cybersearch2.cybertete.dialogs.AccountSelectionHandler
  */
-public class LoginControls extends LoginControlsBase
+public abstract class LoginControls extends LoginControlsBase
 {
     /** Login button */
     public static final String LOGIN_BUTTON_TEXT = "Login";

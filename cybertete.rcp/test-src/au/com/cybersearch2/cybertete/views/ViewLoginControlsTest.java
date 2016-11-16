@@ -67,7 +67,7 @@ public class ViewLoginControlsTest
         AdvancedLoginController advancedLoginController = mock(AdvancedLoginController.class);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
         ViewLoginControls viewLoginControls = new ViewLoginControls(parent, loginData, controlFactory, configNotifier, advancedLoginController);
-        viewLoginControls.onOkPressed();
+        viewLoginControls.login();
         verify(advancedLoginController).onLogin();
     }
     

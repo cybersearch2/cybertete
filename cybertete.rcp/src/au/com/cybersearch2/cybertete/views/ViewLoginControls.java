@@ -70,6 +70,7 @@ public class ViewLoginControls extends LoginControls
         
         public void widgetSelected(SelectionEvent event) 
         {
+            isLoginPending = false;
             LoginConfig loginConfig = getLoginConfig(userSelector.getText());
             applyChanges(loginConfig);
         }
@@ -117,7 +118,7 @@ public class ViewLoginControls extends LoginControls
      * @see au.com.cybersearch2.cybertete.dialogs.LoginControlsBase#onOkPressed()
      */
     @Override
-    protected void onOkPressed()
+    protected void login()
     {   // Delegate login to helper, which shows progress monitor
         // and saves configuration if login succeeds
         advancedLoginController.onLogin();

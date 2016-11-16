@@ -66,7 +66,14 @@ public class LoginControlsTest
         when(loginData.isAutoLogin()).thenReturn(true);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, false, configNotifier);
+        LoginControls loginControls = new LoginControls(loginData, false, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         ControlFactory controlFactory = mock(ControlFactory.class);
         Composite parent = mock(Composite.class);
         Composite composite = mock(Composite.class);
@@ -119,7 +126,14 @@ public class LoginControlsTest
         when(loginData.isAutoLogin()).thenReturn(true);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, true, configNotifier);
+        LoginControls loginControls = new LoginControls(loginData, true, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         ControlFactory controlFactory = mock(ControlFactory.class);
         Composite parent = mock(Composite.class);
         Composite composite = mock(Composite.class);
@@ -161,7 +175,14 @@ public class LoginControlsTest
         when(loginData.isAutoLogin()).thenReturn(true);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, true, configNotifier);
+        LoginControls loginControls = new LoginControls(loginData, true, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         ControlFactory controlFactory = mock(ControlFactory.class);
         Composite parent = mock(Composite.class);
         Composite composite = mock(Composite.class);
@@ -213,7 +234,14 @@ public class LoginControlsTest
         when(loginData.isAutoLogin()).thenReturn(true);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, true, configNotifier);
+        LoginControls loginControls = new LoginControls(loginData, true, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         loginControls.singleSignonEnabled = true;
         ControlFactory controlFactory = mock(ControlFactory.class);
         Composite parent = mock(Composite.class);
@@ -260,7 +288,14 @@ public class LoginControlsTest
         List<SessionDetails> sessionDetailsList = Collections.emptyList();
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, false, configNotifier);
+        LoginControls loginControls = new LoginControls(loginData, false, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         loginControls.hostPortHidden = true;
         Composite parent = mock(Composite.class);
         Composite hostPortContent = mock(Composite.class);
@@ -283,7 +318,14 @@ public class LoginControlsTest
         List<SessionDetails> sessionDetailsList = Collections.emptyList();
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, false, configNotifier);
+        LoginControls loginControls = new LoginControls(loginData, false, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         loginControls.usernameHidden = true;
         Composite parent = mock(Composite.class);
         Composite usernameContent = mock(Composite.class);
@@ -306,7 +348,14 @@ public class LoginControlsTest
         List<SessionDetails> sessionDetailsList = Collections.emptyList();
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, false, configNotifier);
+        LoginControls loginControls = new LoginControls(loginData, false, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         loginControls.plainSaslHidden = true;
         Composite parent = mock(Composite.class);
         Composite plainSaslContent = mock(Composite.class);
@@ -329,7 +378,14 @@ public class LoginControlsTest
         List<SessionDetails> sessionDetailsList = Collections.emptyList();
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, false, configNotifier);
+        LoginControls loginControls = new LoginControls(loginData, false, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         loginControls.hostText = mock(TextControl.class);
         loginControls.portText = mock(TextControl.class);
         loginControls.usernameText = mock(TextControl.class);
@@ -364,7 +420,14 @@ public class LoginControlsTest
         List<SessionDetails> sessionDetailsList = Collections.singletonList(sessionDetails);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, false, configNotifier);
+        LoginControls loginControls = new LoginControls(loginData, false, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         TextControl passwordText = mock(TextControl.class);
         when(passwordText.isEnabled()).thenReturn(true);
         loginControls.passwordText = passwordText;
@@ -433,7 +496,14 @@ public class LoginControlsTest
         List<SessionDetails> sessionDetailsList = Collections.singletonList(sessionDetails);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, false, configNotifier);
+        LoginControls loginControls = new LoginControls(loginData, false, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         TextControl passwordText = mock(TextControl.class);
         when(passwordText.isEnabled()).thenReturn(false);
         loginControls.passwordText = passwordText;
@@ -478,7 +548,14 @@ public class LoginControlsTest
         List<SessionDetails> sessionDetailsList = Collections.emptyList();
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls underTest = new LoginControls(loginData, false, configNotifier);
+        LoginControls underTest = new LoginControls(loginData, false, configNotifier)
+        {
+            @Override
+            protected void login()
+            {
+                
+            }
+        };
         TextControl passwordText = mock(TextControl.class);
         TextControl hostText = mock(TextControl.class);
         TextControl portText = mock(TextControl.class);

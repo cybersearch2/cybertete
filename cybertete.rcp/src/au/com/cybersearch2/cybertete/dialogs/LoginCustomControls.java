@@ -106,7 +106,8 @@ public class LoginCustomControls extends CustomControls
     @Override
     public boolean defaultSelect(DialogHandler dialogHandler)
     {
-        return loginControls.okPressed();
+        loginControls.okPressed();
+        return false;
     }
 
     /**

@@ -56,16 +56,6 @@ public class DialogLoginControls extends LoginControls
     }
     
 
-    /**
-     * Login button pressed
-     */
-    @Override
-    protected void onOkPressed()
-    {
-        if (okPressed())
-            dismissDialog();
-    }
-
     protected void dismissDialog()
     {
         // Dismiss dialog and return OK code (at end of processing initiated by Login button pressed)
@@ -79,6 +69,15 @@ public class DialogLoginControls extends LoginControls
     protected void resizeDialog()
     {
         dialogHandler.resizeDialog();
+    }
+
+    /**
+     * Login button pressed, so dismiss dialog to initiate ChatLoginController
+     */
+    @Override
+    protected void login()
+    {
+        dismissDialog();
     }
 
 }

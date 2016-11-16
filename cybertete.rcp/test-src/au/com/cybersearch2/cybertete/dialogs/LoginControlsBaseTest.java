@@ -78,7 +78,7 @@ public class LoginControlsBaseTest
         }
 
         @Override
-        public void onOkPressed()
+        public void login()
         {
             isOnOkPressed = true;
         }
