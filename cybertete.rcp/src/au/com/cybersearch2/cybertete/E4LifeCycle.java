@@ -8,6 +8,9 @@ import javax.inject.Inject;
 
 import com.opcoach.e4.preferences.ScopedPreferenceStore;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -88,6 +91,17 @@ public class E4LifeCycle
         for (String arg: argsArray)
             args.add(arg);
         lifeCycleHandler.onPostContextCreate(args);
+        IConfigurationElement[] config = Platform.getExtensionRegistry()
+                .getConfigurationElementsFor("org.eclipse.equinox.security.secureStorage");
+        for (int i = 0; i < config.length; i++)
+            try
+            {
+                logger.info(config[i].createExecutableExtension("class").getClass().toString() + ", priority = " + config[i].getAttribute("priority"));
+            }
+            catch (CoreException e)
+            {
+                logger.error(e);
+            }
 	}
 
     @PreSave

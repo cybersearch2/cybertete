@@ -33,5 +33,14 @@
             pluginId="au.com.cybersearch2.cybertete">
       </preferenceStoreProvider>
    </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.equinox.security.secureStorage">
+      <provider
+            class="au.com.cybersearch2.equinox.CybersearchPasswordProvider"
+            description="Placeholder password provider for Linux"
+            priority="3">
+      </provider>
+   </extension>
 
 </plugin>

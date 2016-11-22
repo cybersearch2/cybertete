@@ -3,6 +3,7 @@ package au.com.cybersearch2.cybertete;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
 import au.com.cybersearch2.classylog.E4JavaLogger;
@@ -123,4 +124,88 @@ public class Activator implements BundleActivator
 	    setContext(null);
 	}
 
+    public static ILoggerProvider getLoggerProvider()
+    {
+        BundleContext context = getContext();
+        if (context != null)
+        {
+            ServiceReference<ILoggerProvider> service = context.getServiceReference(ILoggerProvider.class);
+            if (service != null)
+                return context.getService(service);
+        }
+        return getNullLoggerProvider();
+    }
+
+    static ILoggerProvider getNullLoggerProvider()
+    {
+        return new ILoggerProvider() {
+            @Override
+            public Logger getClassLogger(Class<?> clazz) 
+            {
+                // E4JavaLogger wraps JavaLogger for use in this context
+                return new Logger(){
+
+                    @Override
+                    public boolean isErrorEnabled()
+                    {
+                        return false;
+                    }
+
+                    @Override
+                    public void error(Throwable t, String message)
+                    {
+                    }
+
+                    @Override
+                    public boolean isWarnEnabled()
+                    {
+                        return false;
+                    }
+
+                    @Override
+                    public void warn(Throwable t, String message)
+                    {
+                    }
+
+                    @Override
+                    public boolean isInfoEnabled()
+                    {
+                        return false;
+                    }
+
+                    @Override
+                    public void info(Throwable t, String message)
+                    {
+                    }
+
+                    @Override
+                    public boolean isTraceEnabled()
+                    {
+                        return false;
+                    }
+
+                    @Override
+                    public void trace(Throwable t, String message)
+                    {
+                    }
+
+                    @Override
+                    public boolean isDebugEnabled()
+                    {
+                        return false;
+                    }
+
+                    @Override
+                    public void debug(Throwable t)
+                    {
+                    }
+
+                    @Override
+                    public void debug(Throwable t, String message)
+                    {
+                    }};
+            }
+        };
+
+    }
 }
