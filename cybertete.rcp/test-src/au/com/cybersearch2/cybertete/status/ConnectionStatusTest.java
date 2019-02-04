@@ -37,10 +37,12 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
+import org.junit.Rule;
 import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -53,6 +55,8 @@ import au.com.cybersearch2.cybertete.model.CyberteteEvents;
 import au.com.cybersearch2.cybertete.service.ChatLoginController;
 import au.com.cybersearch2.statusbar.StatusBar;
 import au.com.cybersearch2.statusbar.StatusItem;
+
+
 
 /**
  * ConnectionStatusTest
@@ -86,20 +90,22 @@ import au.com.cybersearch2.statusbar.StatusItem;
     "org.eclipse.swt.graphics.Font", 
     "org.eclipse.swt.graphics.FontMetrics"
 })
+
+
 public class ConnectionStatusTest
 {
     static final String TEST_MESSAGE = "Testing 123";
     static final String TOOL_TIP = "Tool tip";
     static final String TEST_JID = "mickymouse@disney.com";
- 
+
+    @Rule public MockitoRule mockitoRule = MockitoJUnit.rule(); 
+
+    @Mock
+    ControlFactory controlFactory;
+    
     @Before
     public void setUp() throws Exception
     {
-        org.eclipse.e4.ui.internal.services.Activator activator = 
-            new org.eclipse.e4.ui.internal.services.Activator();
-        BundleContext context = mock(BundleContext.class);
-        when(context.getBundles()).thenReturn(new Bundle[]{});
-        activator.start(context);
     }
     
     @Test
@@ -108,7 +114,6 @@ public class ConnectionStatusTest
         ImageFactory imageFactory = mock(ImageFactory.class);
         Image yellow = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/yellow_circle.gif")).thenReturn(yellow);
-        ControlFactory controlFactory = mock(ControlFactory.class);
         ConnectionStatus underTest = new ConnectionStatus(imageFactory);
         underTest.controlFactory = controlFactory;
         assertThat(underTest.getStatusItem().isVisible()).isTrue();
@@ -149,7 +154,6 @@ public class ConnectionStatusTest
         when(imageFactory.getImage("icons/yellow_circle.gif")).thenReturn(yellow);
         Image blank = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/blank.gif")).thenReturn(blank);
-        ControlFactory controlFactory = mock(ControlFactory.class);
         ConnectionStatus underTest = new ConnectionStatus(imageFactory);
         underTest.controlFactory = controlFactory;
         EventBroker eventBroker = mock(EventBroker.class);
@@ -197,7 +201,6 @@ public class ConnectionStatusTest
         when(principal.getName()).thenReturn("CN=" + TEST_JID);
         when(cert.getSubjectDN()).thenReturn(principal);
         X509Certificate oldCert = mock(X509Certificate.class);
-        ControlFactory controlFactory = mock(ControlFactory.class);
         when(controlFactory.menuInstance(label1)).thenReturn(menu1);
         when(controlFactory.menuInstance(label2)).thenReturn(menu2);
         MenuItem menuItem1 = mock(MenuItem.class);
@@ -251,7 +254,6 @@ public class ConnectionStatusTest
         when(imageFactory.getImage("icons/black_circle.gif")).thenReturn(black);
         Image red = PowerMockito.mock(Image.class);
         when(imageFactory.getImage("icons/red_circle.gif")).thenReturn(red);
-        ControlFactory controlFactory = mock(ControlFactory.class);
         ConnectionStatus underTest = new ConnectionStatus(imageFactory);
         underTest.controlFactory = controlFactory;
         Logger logger = mock(Logger.class);

@@ -8,17 +8,12 @@
     <artifactId>au.com.cybersearch2.cybertete</artifactId>
     <version>1.3.2-SNAPSHOT</version>
     <packaging>eclipse-plugin</packaging>
-    <properties>
-        <third-party-repo>${project.baseUri}../p2</third-party-repo>
-    </properties>
-    <repositories>
-	  <repository>
-		<id>third-party-plugins</id>
-		<layout>p2</layout>
-		<url>${third-party-repo}</url>
-	  </repository>
-   </repositories>
-   <dependencies>
+    <dependencies>
+				<dependency>
+				    <groupId>org.eclipse.swt.org.eclipse.swt.gtk.linux.x86_64.4.3.swt</groupId>
+				    <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
+				    <version>4.3</version>
+				</dependency>        
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -89,28 +84,30 @@
 				</goals>
 			  </execution>
 			</executions>
-	    </plugin>       
+	    </plugin>      
+	    <!-- 
 	   <plugin>
-		<groupId>org.eclipse.tycho</groupId>
-		<artifactId>target-platform-configuration</artifactId>
-		<version>${tycho.version}</version>
-		<configuration>
-		<environments>
-		  <environment>
-		   <os>${osgi.os}</os>
-		   <ws>${osgi.ws}</ws>
-		   <arch>${osgi.arch}</arch>
-		  </environment>
-		 </environments>
-	     <target> 
-			<artifact>
-				<groupId>au.com.cybersearch2</groupId>
-				<artifactId>cybertete.root</artifactId>
-				<version>${project.version}</version>
-			</artifact>
-		  </target>  
-		</configuration>
+			<groupId>org.eclipse.tycho</groupId>
+			<artifactId>target-platform-configuration</artifactId>
+			<version>${tycho.version}</version>
+			<configuration>
+			<environments>
+			  <environment>
+			   <os>${osgi.os}</os>
+			   <ws>${osgi.ws}</ws>
+			   <arch>${osgi.arch}</arch>
+			  </environment>
+			 </environments>
+		     <target> 
+				<artifact>
+					<groupId>au.com.cybersearch2</groupId>
+					<artifactId>cybertete.root</artifactId>
+					<version>${project.version}</version>
+				</artifact>
+			  </target>  
+			</configuration>
 	   </plugin>
+	   -->
        <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -155,20 +152,20 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.3</version>
-                <configuration>
-                  <reportPlugins>
-                    <plugin>
-                      <groupId>org.apache.maven.plugins</groupId>
-                      <artifactId>maven-javadoc-plugin</artifactId>
-                      <configuration>
-                        <additionalparam>-Xdoclint:none</additionalparam>
-                      </configuration>
-                    </plugin>
-                  </reportPlugins>
-                </configuration>
               </plugin>
             </plugins>
           </build>
+          <reporting>
+            <plugins>
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                  <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+              </plugin>
+            </plugins>
+          </reporting>
         </profile>
     </profiles>
 </project>

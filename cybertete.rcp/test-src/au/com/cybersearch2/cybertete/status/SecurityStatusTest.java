@@ -40,10 +40,8 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.ToolTip;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -98,11 +96,6 @@ public class SecurityStatusTest
     @Before
     public void setUp() throws Exception
     {
-        org.eclipse.e4.ui.internal.services.Activator activator = 
-            new org.eclipse.e4.ui.internal.services.Activator();
-        BundleContext context = mock(BundleContext.class);
-        when(context.getBundles()).thenReturn(new Bundle[]{});
-        activator.start(context);
     }
     
     @Test

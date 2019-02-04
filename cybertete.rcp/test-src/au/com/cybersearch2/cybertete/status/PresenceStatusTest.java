@@ -26,8 +26,6 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Image;
 import org.junit.Before;
 import org.junit.Test;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
@@ -81,11 +79,6 @@ public class PresenceStatusTest
     @Before
     public void setUp() throws Exception
     {
-        org.eclipse.e4.ui.internal.services.Activator activator = 
-            new org.eclipse.e4.ui.internal.services.Activator();
-        BundleContext context = mock(BundleContext.class);
-        when(context.getBundles()).thenReturn(new Bundle[]{});
-        activator.start(context);
     }
     
     @Test
