@@ -21,7 +21,7 @@
 		        <url>http://micro-pro:8098/maven/c5758c8a-59af-4015-be5c-70816618e845</url>
 		    </repository>
 		</distributionManagement>
-  <dependencyManagement>
+    <dependencyManagement>
       <dependencies>
          <dependency>
             <groupId>org.mockito</groupId>
