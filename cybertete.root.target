@@ -8,18 +8,9 @@
 			<unit id="org.eclipse.ecf.filetransfer.ssl.feature.feature.group" version="1.1.100.v20180301-0132"/>
 			<unit id="org.eclipse.emf.common.feature.group" version="2.14.0.v20180527-1134"/>
 			<unit id="org.eclipse.emf.ecore.feature.group" version="2.14.0.v20180529-1144"/>
-			<unit id="org.eclipse.equinox.core.feature.feature.group" version="1.5.0.v20180502-1828"/>
-			<unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.14.0.v20180512-1130"/>
-			<unit id="org.eclipse.equinox.p2.core.feature.source.feature.group" version="1.5.0.v20180515-1348"/>
-			<unit id="org.eclipse.rcp.feature.group" version="4.8.0.v20180611-0656"/>
-			<unit id="org.eclipse.equinox.executable.feature.group" version="3.8.0.v20180518-2029"/>
 		<repository location="http://download.eclipse.org/releases/photon"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="au.com.cybersearch2.control_factory.feature.feature.group" version="1.2.1.201902032321"/>
-			<unit id="au.com.cybersearch2.control_factory.feature.source.feature.group" version="1.2.1.201902032321"/>
-			<unit id="au.com.cybersearch2.statusbar.feature.feature.group" version="1.2.1.201902030346"/>
-			<unit id="au.com.cybersearch2.statusbar.feature.source.feature.group" version="1.2.1.201902030346"/>
 			<unit id="dnsjava" version="2.1.8"/>
 			<unit id="org.igniterealtime.smack.core" version="4.1.8"/>
 			<unit id="org.igniterealtime.smack.debug" version="4.1.8"/>
@@ -35,10 +26,22 @@
 			<unit id="org.jxmpp.util-cache" version="0.4.2"/>
 			<unit id="xpp3" version="1.1.0.4c"/>
 			<repository location="http://micro-pro.cybersearch2.com:8098/p2/Cybersearch2"/>
+			<unit id="au.com.cybersearch2.statusbar.feature.feature.group" version="1.2.1.201902040704"/>
+			<unit id="au.com.cybersearch2.statusbar.feature.source.feature.group" version="1.2.1.201902040704"/>
+			<unit id="au.com.cybersearch2.control_factory.feature.source.feature.group" version="1.2.1.201902040702"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="com.opcoach.e4.preferences.feature.feature.group" version="1.1.0.201710152105"/>
 			<repository location="https://dl.bintray.com/opcoach/e4Preferences"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.equinox.core.feature.feature.group" version="1.6.0.v20180903-1343"/>
+			<unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.15.0.v20180827-1536"/>
+			<unit id="org.eclipse.equinox.executable.feature.group" version="3.8.100.v20180827-1352"/>
+			<unit id="org.eclipse.equinox.p2.core.feature.source.feature.group" version="1.5.100.v20180829-1443"/>
+			<unit id="org.eclipse.equinox.sdk.feature.group" version="3.15.0.v20180904-1442"/>
+			<repository location="http://download.eclipse.org/eclipse/updates/4.9"/>
+			<unit id="org.eclipse.rcp.feature.group" version="4.9.0.v20180906-1121"/>
 		</location>
 	</locations>
 </target>

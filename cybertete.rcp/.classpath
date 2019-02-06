@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins">
 		<accessrules>
 			<accessrule kind="accessible" pattern="org/e*/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="test-src"/>
-	<classpathentry kind="var" path="M2_REPO/org/easytesting/fest-assert-core/2.0M10/fest-assert-core-2.0M10.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/easytesting/fest-util/1.2.5/fest-util-1.2.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/mockito/mockito-core/2.0.42-beta/mockito-core-2.0.42-beta.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/powermock/powermock-api-mockito2/1.6.5/powermock-api-mockito2-1.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/powermock/powermock-api-mockito-common/1.6.5/powermock-api-mockito-common-1.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/powermock/powermock-api-support/1.6.5/powermock-api-support-1.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/powermock/powermock-core/1.6.5/powermock-core-1.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/powermock/powermock-reflect/1.6.5/powermock-reflect-1.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/powermock/powermock-module-junit4/1.6.5/powermock-module-junit4-1.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/powermock/powermock-module-junit4-common/1.6.5/powermock-module-junit4-common-1.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/javassist/javassist/3.19.0-GA/javassist-3.19.0-GA.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/objenesis/objenesis/2.2/objenesis-2.2.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="var" path="M2_REPO/com/github/marschall/memoryfilesystem/0.8.0/memoryfilesystem-0.8.0.jar"/>
-	<classpathentry kind="output" path="target/test-classes"/>
+	<classpathentry kind="src" path="src/"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
