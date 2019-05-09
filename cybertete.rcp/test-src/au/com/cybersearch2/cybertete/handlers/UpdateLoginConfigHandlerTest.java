@@ -110,32 +110,6 @@ public class UpdateLoginConfigHandlerTest
     }
     
     @Test
-    public void test_applyChanges_no_principal_match()
-    {
-        UpdateLoginConfigHandler updateLoginConfigHandler = new UpdateLoginConfigHandler();
-        SyncErrorDialog errorDialog = mock(SyncErrorDialog.class);
-        updateLoginConfigHandler.errorDialog = errorDialog;
-        LoginConfig loginConfig = mock(LoginConfig.class);
-        when(loginConfig.getJid()).thenReturn(TEST_JID2);
-        when(loginConfig.getGssapiPrincipal()).thenReturn(GSSAPI_PRINCIPAL);
-        assertThat(updateLoginConfigHandler.applyChanges(loginConfig, true)).isEqualTo(LoginStatus.fail);
-        verify(errorDialog).showError("Invalid JID", "JID for Single Signon must start with " + GSSAPI_PRINCIPAL + "@");
-    }
-    
-    @Test
-    public void test_applyChanges_jid_format_invalid()
-    {
-        UpdateLoginConfigHandler updateLoginConfigHandler = new UpdateLoginConfigHandler();
-        SyncErrorDialog errorDialog = mock(SyncErrorDialog.class);
-        updateLoginConfigHandler.errorDialog = errorDialog;
-        LoginConfig loginConfig = mock(LoginConfig.class);
-        when(loginConfig.getJid()).thenReturn(GSSAPI_PRINCIPAL + "x@disney.com");
-        when(loginConfig.getGssapiPrincipal()).thenReturn(GSSAPI_PRINCIPAL);
-        assertThat(updateLoginConfigHandler.applyChanges(loginConfig, true)).isEqualTo(LoginStatus.fail);
-        verify(errorDialog).showError("Invalid JID", "JID for Single Signon must start with " + GSSAPI_PRINCIPAL + "@");
-    }
-    
-    @Test
     public void test_applyChanges_invalid_password()
     {
         UpdateLoginConfigHandler updateLoginConfigHandler = new UpdateLoginConfigHandler();

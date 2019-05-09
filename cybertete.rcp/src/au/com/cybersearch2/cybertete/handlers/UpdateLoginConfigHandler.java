@@ -180,17 +180,6 @@ public class UpdateLoginConfigHandler
             return LoginStatus.fail;
         }
         String gssapiPrincipal = loginBean.getGssapiPrincipal();
-        if (gssapiPrincipal != null)
-        {
-            boolean principalMatch = jid.toLowerCase().startsWith(gssapiPrincipal.toLowerCase());
-            if (!principalMatch || (jid.charAt(gssapiPrincipal.length()) != '@'))
-            {
-                if (showMessage)
-                    errorDialog.showError( "Invalid JID",
-                            "JID for Single Signon must start with " + gssapiPrincipal + "@");
-                return LoginStatus.fail;
-            }
-        }
         // TODO - Make min password length configurable
         String password = loginBean.getPassword();
         if ((password.length() < MIN_PASSWORD_LENGTH) && 
@@ -214,7 +203,8 @@ public class UpdateLoginConfigHandler
         if (!username.isEmpty())
             newSessionDetails.setAuthcid(username);
         newSessionDetails.setPlainSasl(loginBean.isPlainSasl());
-        newSessionDetails.setGssapi(gssapiPrincipal != null);
+        if (gssapiPrincipal != null)
+        	loginData.saveSingleSignonUser(jid);
         loginData.setSessionDetails(newSessionDetails);
         loginData.updateAutoLogin(loginBean.isAutoLogin());
         return LoginStatus.noError;

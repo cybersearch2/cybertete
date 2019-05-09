@@ -24,9 +24,11 @@ import javax.net.ssl.SSLContext;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration.Builder;
+import org.junit.Before;
 import org.junit.Test;
 
 import au.com.cybersearch2.cybertete.model.service.SessionDetails;
+import au.com.cybersearch2.cybertete.preferences.UserDataStore;
 import au.com.cybersearch2.cybertete.service.ChainHostnameVerifier;
 
 /**
@@ -40,7 +42,17 @@ public class XmppConnectionFactoryTest
     static final String TEST_USERNAME = "donald";
     static final String TEST_JID = "mickymouse@disney.com";
     static final String TEST_HOST = "google.talk";
+	private static final String SSO_USER = "sso-user@example.com";
+	
+	private UserDataStore userDataStore;
 
+	@Before
+	public void setUp()
+	{
+        userDataStore = mock(UserDataStore.class);
+        when(userDataStore.getSingleSignonUser()).thenReturn(SSO_USER);
+	}
+	
     @Test
     public void test_configureConnection()
     {
@@ -116,6 +128,7 @@ public class XmppConnectionFactoryTest
         final ChainHostnameVerifier chainHostnameVerifier = mock(ChainHostnameVerifier.class);
         XmppConnectionFactory underTest = new XmppConnectionFactory();
         underTest.chainHostnameVerifier = chainHostnameVerifier;
+        underTest.userDataStore= userDataStore;
         final XmppConnection xmppConnection = mock(XmppConnection.class);
         underTest.artifactFactory = new XmppConnectionFactory.ArtifactFactory()
         {
@@ -163,6 +176,7 @@ public class XmppConnectionFactoryTest
         final ChainHostnameVerifier chainHostnameVerifier = mock(ChainHostnameVerifier.class);
         XmppConnectionFactory underTest = new XmppConnectionFactory();
         underTest.chainHostnameVerifier = chainHostnameVerifier;
+        underTest.userDataStore= userDataStore;
         final XmppConnection xmppConnection = mock(XmppConnection.class);
         underTest.artifactFactory = new XmppConnectionFactory.ArtifactFactory()
         {
@@ -209,6 +223,7 @@ public class XmppConnectionFactoryTest
         ChainHostnameVerifier chainHostnameVerifier = mock(ChainHostnameVerifier.class);
         XmppConnectionFactory underTest = new XmppConnectionFactory();
         underTest.chainHostnameVerifier = chainHostnameVerifier;
+        underTest.userDataStore= userDataStore;
         underTest.artifactFactory = new XmppConnectionFactory.ArtifactFactory()
         {
 
@@ -240,7 +255,7 @@ public class XmppConnectionFactoryTest
         SessionDetails sessionDetails = mock(SessionDetails.class);
         when(sessionDetails.getPassword()).thenReturn(password);
         when(sessionDetails.getJid()).thenReturn(TEST_JID);
-        when(sessionDetails.isGssapi()).thenReturn(true);
+        when(sessionDetails.getHost()).thenReturn("disney.com");
         final XMPPTCPConnectionConfiguration.Builder configBuilder = mock(XMPPTCPConnectionConfiguration.Builder.class);
         XMPPTCPConnectionConfiguration xmppTcpConfig = mock(XMPPTCPConnectionConfiguration.class);
         HostnameVerifier hostnameVerifier = mock(HostnameVerifier.class);
@@ -249,6 +264,9 @@ public class XmppConnectionFactoryTest
         ChainHostnameVerifier chainHostnameVerifier = mock(ChainHostnameVerifier.class);
         XmppConnectionFactory underTest = new XmppConnectionFactory();
         underTest.chainHostnameVerifier = chainHostnameVerifier;
+        UserDataStore ssoUserDataStore = mock(UserDataStore.class);
+        when(ssoUserDataStore.getSingleSignonUser()).thenReturn(TEST_JID);
+        underTest.userDataStore= ssoUserDataStore;
         underTest.artifactFactory = new XmppConnectionFactory.ArtifactFactory()
         {
 
@@ -267,7 +285,7 @@ public class XmppConnectionFactoryTest
         };
         underTest.configureConnection(sessionDetails, sslContext);
         verify(configBuilder).setSendPresence(false);
-        verify(configBuilder, times(0)).setHost(any(String.class));
+        verify(configBuilder).setHost("disney.com");
         verify(configBuilder).setResource("cybertete");
         verify(configBuilder).setServiceName("disney.com");
         verify(configBuilder).setCustomSSLContext(sslContext);

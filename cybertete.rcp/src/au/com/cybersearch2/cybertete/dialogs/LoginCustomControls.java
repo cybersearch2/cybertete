@@ -52,7 +52,7 @@ public class LoginCustomControls extends CustomControls
     }
 
     /**
-     * @see au.com.cybersearch2.controls.CustomControls#createDialogArea(org.eclipse.swt.widgets.Composite, au.com.cybersearch2.dialogs.DialogHandler)
+     * @see au.com.cybersearch2.controls.CustomControls#createControls(org.eclipse.swt.widgets.Composite, au.com.cybersearch2.dialogs.DialogHandler)
      */
     @Override
     public Control createControls(Composite parent, DialogHandler dialogHandler)
@@ -82,13 +82,6 @@ public class LoginCustomControls extends CustomControls
                 dialogHandler.exitDialog(Window.CANCEL + 1);
             }
         });
-        if (!loginControls.isPasswordMandatory())
-        {
-            // Single signon button
-            Button singleSignonButton = buttonFactory.buttonInstance(parent,
-                    IDialogConstants.CLIENT_ID + 2, "Single Signon", false);
-            singleSignonButton.addSelectionListener(loginControls.getSingleSignonSelectionAdapter());
-        }
         // OK button
         buttonFactory.buttonInstance(parent, IDialogConstants.OK_ID, LoginControls.LOGIN_BUTTON_TEXT, true);
         // Cancel button

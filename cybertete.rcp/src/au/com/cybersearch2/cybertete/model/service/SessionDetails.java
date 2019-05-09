@@ -39,8 +39,6 @@ public class SessionDetails implements ChatAccount, AuthenticationData, Comparab
 	private int port;
 	/** Flag set true if plain SASL authentication allowed */
 	private boolean plainSasl;
-	/** Flag set true if using single signon authentication (GSSAPI implementation) */ 
-	private boolean isGssapi;
 	/** Dirty flag */
 	boolean isDirty;
 
@@ -89,7 +87,6 @@ public class SessionDetails implements ChatAccount, AuthenticationData, Comparab
         port = account.getPort();
         authcid = account.getAuthcid();
         plainSasl = account.isPlainSasl();
-        isGssapi = account.isGssapi();
         isDirty = true;
     }
 
@@ -204,26 +201,6 @@ public class SessionDetails implements ChatAccount, AuthenticationData, Comparab
     public void setPlainSasl(boolean plainSasl)
     {
         this.plainSasl = plainSasl;
-        isDirty = true;
-    }
-
-    /**
-     * Returns flag set true if single signon (GSSAPI implementation)
-     * @return boolean
-     */
-    @Override
-    public boolean isGssapi()
-    {
-        return isGssapi;
-    }
-
-    /**
-     * Set flag for single signon
-     * @param isGssapi boolean
-     */ 
-    public void setGssapi(boolean isGssapi)
-    {
-        this.isGssapi = isGssapi;
         isDirty = true;
     }
 

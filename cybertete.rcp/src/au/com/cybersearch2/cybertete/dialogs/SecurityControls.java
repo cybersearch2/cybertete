@@ -47,7 +47,7 @@ import au.com.cybersearch2.cybertete.security.SecurityConfig;
 import au.com.cybersearch2.cybertete.security.SecurityConfigController;
 
 /**
- * SecurityCotrols
+ * SecurityControls
  * Security configuration control creation and event handling
  * @author Andrew Bowley
  * 25 Mar 2016

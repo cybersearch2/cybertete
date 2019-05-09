@@ -138,6 +138,7 @@ public class ViewLoginControlsTest
         when(loginData.getSessionDetails()).thenReturn(sessionDetails);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList, emptyList);
         when(loginData.getDeletedSessions()).thenReturn(deletedSessionDetailsSet);
+        when(loginData.getSingleSignonUser()).thenReturn("");
         AdvancedLoginController advancedLoginController = mock(AdvancedLoginController.class);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
         ViewLoginControls viewLoginControls = new ViewLoginControls(parent, loginData, controlFactory, configNotifier, advancedLoginController);
@@ -171,16 +172,18 @@ public class ViewLoginControlsTest
         when(plainSasl.getSelection()).thenReturn(true);
         viewLoginControls.createDialogArea();
         viewLoginControls.createButtonsForButtonBar();
-        verify(buttonBar).createButton(
-                eq(IDialogConstants.CLIENT_ID + 2), 
-                eq("Single Signon"), 
-                isA(SelectionAdapter.class),
-                eq(false));
+        /*
+                */
         ArgumentCaptor<SelectionAdapter> removeCaptor = ArgumentCaptor.forClass(SelectionAdapter.class);
         verify(buttonBar).createButton(
                 eq(IDialogConstants.CLIENT_ID), 
                 eq("Delete User"), 
                 removeCaptor.capture(),
+                eq(false));
+        verify(buttonBar).createButton(
+                eq(IDialogConstants.CLIENT_ID + 1), 
+                eq("Apply"), 
+                isA(SelectionAdapter.class),
                 eq(false));
         SelectionAdapter removeAdapter = removeCaptor.getValue();
         removeAdapter.widgetSelected(mock(SelectionEvent.class));

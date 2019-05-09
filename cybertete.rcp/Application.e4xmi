@@ -21,6 +21,7 @@
         <children xsi:type="basic:PartStack" xmi:id="_sbwSIJDTEeWixJ7tTeSK9g" elementId="au.com.cybersearch2.cybertete.partstack.1">
           <children xsi:type="basic:Part" xmi:id="_u4OUkJDTEeWixJ7tTeSK9g" elementId="au.com.cybersearch2.cybertete.part.login" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.views.LoginView" label="Advanced Login"/>
           <children xsi:type="basic:Part" xmi:id="_px7lsJ60EeWZk9tYMs7t5w" elementId="au.com.cybersearch2.cybertete.part.security" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.views.SecurityView" label="Security"/>
+          <children xsi:type="basic:Part" xmi:id="_CNHfADI4Eem_iaPVEtxJpw" elementId="au.com.cybersearch2.cybertete.part.sso" contributionURI="bundleclass://au.com.cybersearch2.cybertete/au.com.cybersearch2.cybertete.views.SingleSignOnView" label="Single Sign On"/>
         </children>
       </children>
     </children>

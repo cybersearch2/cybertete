@@ -46,12 +46,16 @@ public class RunAtStartupEventHandler implements EventHandler
     @Override
     public void handleEvent(Event event)
     {
-        if (communicationsState.isOnline())
+        if (communicationsState.isOnline()) 
+        {
+            // Offline runs in Offline perspective, which shows Advanced Login view 
+            eventBroker.post(CyberteteEvents.PERSPECTIVE_DEFAULT, "Application startup online");
             // Online runs in Default perspective
             eventBroker.post(CyberteteEvents.PRESENCE, Presence.online);
+        }
         else
             // Offline runs in Offline perspective, which shows Advanced Login view 
-            eventBroker.post(CyberteteEvents.PERSPECTIVE_OFFLINE, "Application startup");
+            eventBroker.post(CyberteteEvents.PERSPECTIVE_OFFLINE, "Application startup offline");
     }
 
 }

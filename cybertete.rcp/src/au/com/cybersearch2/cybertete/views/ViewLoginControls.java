@@ -115,7 +115,7 @@ public class ViewLoginControls extends LoginControls
 
     /**
      * 
-     * @see au.com.cybersearch2.cybertete.dialogs.LoginControlsBase#onOkPressed()
+     * @see au.com.cybersearch2.cybertete.dialogs.LoginControlsBase#login()
      */
     @Override
     protected void login()
@@ -162,11 +162,6 @@ public class ViewLoginControls extends LoginControls
                 removeCurrentUserListener,
                 false);
 
-        buttonBar.createButton(
-                IDialogConstants.CLIENT_ID + 2, 
-                "Single Signon", 
-                getSingleSignonSelectionAdapter(),
-                false);
         Button applyButton = buttonBar.createButton(
                 IDialogConstants.CLIENT_ID + 1, 
                 "Apply", 
@@ -184,5 +179,11 @@ public class ViewLoginControls extends LoginControls
     {
         super.createDialogArea(controlFactory, composite);
     }
+
+	public void setFocus() {
+		// Show Single Sigon JID if added as first account
+		if (userSelector.getText().isEmpty())
+            initializeUsers();
+	}
 
 }

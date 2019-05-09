@@ -83,7 +83,7 @@ public class PresenceControls extends CustomControls
 
     /**
      * createDialogArea
-     * @see au.com.cybersearch2.controls.CustomControls#createDialogArea(org.eclipse.swt.widgets.Composite, au.com.cybersearch2.dialogs.DialogHandler)
+     * @see au.com.cybersearch2.controls.CustomControls#createControls(org.eclipse.swt.widgets.Composite, au.com.cybersearch2.dialogs.DialogHandler)
      */
     @Override
     public Control createControls(Composite parent, DialogHandler dialogHandler) 

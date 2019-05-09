@@ -55,9 +55,4 @@ public interface ChatAccount
      */
      boolean isPlainSasl();
     
-    /**
-     * Returns flag set true if single signon (GSSAPI implementation)
-     * @return boolean
-     */
-    boolean isGssapi();
 }

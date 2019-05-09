@@ -30,8 +30,8 @@ public interface PreferenceConstants
     public static final String PLAIN_SASL = "plain_sasl";
     public static final String SAVED = "saved_connections";
     public static final String LAST_USER = "prefs_last_connection";
+    public static final String SSO_USER = "prefs_single_signon_user";
     public static final String AUTO_LOGIN = "prefs_auto_login";
-    public static final String SINGLE_SIGNON = "prefs_single_signon";
     public static final String CLIENT_CERT_AUTH = "prefs_client_Cert_auth";
     public static final String KEYSTORE_FILE = "prefs_keystore_file";
     public static final String KEYSTORE_TYPE = "prefs_keystore_type";

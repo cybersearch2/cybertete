@@ -79,13 +79,8 @@ public class LoginCustomControlsTest
         ControlFactory controlFactory = mock(ControlFactory.class);
         DialogLoginControls loginControls = mock(DialogLoginControls.class);
         SelectionAdapter ssoAdapter = mock(SelectionAdapter.class);
-        when(loginControls.getSingleSignonSelectionAdapter()).thenReturn(ssoAdapter );
-        Button singleSignonButton = mock(Button.class);
-        when(buttonFactory.buttonInstance(parent, IDialogConstants.CLIENT_ID + 2, "Single Signon", false))
-        .thenReturn(singleSignonButton);
         LoginCustomControls underTest = new LoginCustomControls(controlFactory, loginControls);
         underTest.createBarButtons(parent, buttonFactory, loginDialog);
-        verify(singleSignonButton).addSelectionListener(ssoAdapter);
         verify(advanced).addSelectionListener(advancedCaptor.capture());
         advancedCaptor.getValue().widgetSelected(mock(SelectionEvent.class));
         verify(loginDialog).exitDialog(Window.CANCEL + 1);

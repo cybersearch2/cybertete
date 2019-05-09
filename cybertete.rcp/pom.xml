@@ -63,6 +63,9 @@
 				<configuration>
 				  <includes>
 						 <include>au/com/cybersearch2/cybertete/CyberteteTestSuite.java</include>
+						 <include>au/com/cybersearch2/cybertete/status/ConnectionStatusTest.java</include>
+						 <include>au/com/cybersearch2/cybertete/status/PresenceStatusTest.java</include>
+						 <include>au/com/cybersearch2/cybertete/status/SecurityStatusTest.java</include>
 				  </includes>
 				  <argLine>-noverify</argLine>
 				</configuration>

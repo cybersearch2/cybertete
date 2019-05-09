@@ -4,6 +4,8 @@ package au.com.cybersearch2.cybertete.views;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.e4.ui.di.Focus;
+
 /**
  * LoginView
  * Advanced login window, contains fields for options such as host, port and 
@@ -30,4 +32,12 @@ public class LoginView
         loginControls.createButtonsForButtonBar();
     }
 
+    /**
+     * Set focus on current selection
+     */
+    @Focus
+    void setFocus() 
+    {
+    	loginControls.setFocus();
+    }
 }

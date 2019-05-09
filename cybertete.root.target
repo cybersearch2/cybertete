@@ -23,12 +23,13 @@
 			<unit id="org.igniterealtime.smack.sasl-provided" version="4.1.8"/>
 			<unit id="org.igniterealtime.smack.tcp" version="4.1.8"/>
 			<unit id="org.jxmpp.core" version="0.4.2"/>
+			<unit id="org.jxmpp.jid" version="0.4.2"/>
 			<unit id="org.jxmpp.util-cache" version="0.4.2"/>
 			<unit id="xpp3" version="1.1.0.4c"/>
-			<repository location="http://micro-pro.cybersearch2.com:8098/p2/Cybersearch2"/>
 			<unit id="au.com.cybersearch2.statusbar.feature.feature.group" version="1.2.1.201902040704"/>
 			<unit id="au.com.cybersearch2.statusbar.feature.source.feature.group" version="1.2.1.201902040704"/>
 			<unit id="au.com.cybersearch2.control_factory.feature.source.feature.group" version="1.2.1.201902040702"/>
+			<repository location="http://micro-pro.cybersearch2.com:8098/p2/Cybersearch2"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="com.opcoach.e4.preferences.feature.feature.group" version="1.1.0.201710152105"/>

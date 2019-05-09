@@ -59,6 +59,8 @@ public class LoginControlsBaseTest
     static final String TEST_JID = "mickymouse@disney.com";
     static final String TEST_PASSWORD2 = "secret2";
     static final String TEST_JID2 = "adeline@google.com";
+    static final String ssoUser = "";
+
     private static final String TEST_HOST = "google.talk";
     private static final String TEST_USERNAME = "donald";
     
@@ -111,17 +113,6 @@ public class LoginControlsBaseTest
         }
 
         @Override
-        public void showAllFields()
-        {
-        }
-
-        @Override
-        public void hideAllFields()
-        {
-            ++hideAllFieldsCount;
-        }
-
-        @Override
         public void handleEvent(Event event)
         {
         }
@@ -137,6 +128,18 @@ public class LoginControlsBaseTest
         {
             isLoadKerberos = true;
         }
+
+		@Override
+		public void hideSingleSignonFields() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void showSingleSignonFields() {
+			// TODO Auto-generated method stub
+			
+		}
     }
     
     @Test
@@ -148,24 +151,27 @@ public class LoginControlsBaseTest
         TestLoginControls underTest = new TestLoginControls(loginData, false);
         assertThat(underTest.singleSignonEnabled).isFalse();
         SessionDetails sessionDetails = mock(SessionDetails.class);
-        when(sessionDetails.isGssapi()).thenReturn(true);
+        when(sessionDetails.getJid()).thenReturn(TEST_JID);
         loginData = mock(LoginData.class);
         sessionDetailsList = Collections.singletonList(sessionDetails);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
+        when(loginData.getSingleSignonUser()).thenReturn(TEST_JID);
+		//when(loginData.isSingleSignonEnabled()).thenReturn(true);
         underTest = new TestLoginControls(loginData, false);
         assertThat(underTest.singleSignonEnabled).isTrue();
         loginData = mock(LoginData.class);
+        when(loginData.getSingleSignonUser()).thenReturn(TEST_JID2);
         sessionDetails = mock(SessionDetails.class);
-        when(sessionDetails.isGssapi()).thenReturn(false);
+        when(sessionDetails.getJid()).thenReturn(TEST_JID);
         sessionDetailsList = Collections.singletonList(sessionDetails);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         underTest = new TestLoginControls(loginData, false);
         assertThat(underTest.singleSignonEnabled).isFalse();
         loginData = mock(LoginData.class);
         sessionDetails = mock(SessionDetails.class);
-        when(sessionDetails.isGssapi()).thenReturn(false);
         sessionDetailsList = Collections.singletonList(sessionDetails);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
+        when(loginData.getSingleSignonUser()).thenReturn(ssoUser);
         when(loginData.isSingleSignonEnabled()).thenReturn(true);
         underTest = new TestLoginControls(loginData, false);
         assertThat(underTest.singleSignonEnabled).isTrue();
@@ -198,6 +204,7 @@ public class LoginControlsBaseTest
         List<SessionDetails> sessionDetailsList = Collections.singletonList(sessionDetails);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         when(loginData.selectAccount(TEST_JID, ConnectionError.noError)).thenReturn(sessionDetails);
+		when(loginData.getSingleSignonUser()).thenReturn(ssoUser);
         TestLoginControls underTest = new TestLoginControls(loginData, false);
         underTest.connectionError = ConnectionError.noError;
         UserSelector userSelector = mock(UserSelector.class);
@@ -280,11 +287,11 @@ public class LoginControlsBaseTest
         verify(optionsLabel).setText("Options");
         verify(optionsLabel).setLayoutData(isA(GridData.class));
         verify(autoLoginCheck).setText("Login automatically at startup");
-        verify(autoLoginCheck).setLayoutData(isA(GridData.class));
+        verify(autoLoginCheck, times(2)).setLayoutData(isA(GridData.class));
         verify(autoLoginCheck).setSelection(true);
         ArgumentCaptor<SelectionListener> listenerCaptor = ArgumentCaptor.forClass(SelectionListener.class);
-        verify(autoLoginCheck).addSelectionListener(listenerCaptor.capture());
-        listenerCaptor.getValue().widgetSelected(mock(SelectionEvent.class));
+        verify(autoLoginCheck, times(2)).addSelectionListener(listenerCaptor.capture());
+        listenerCaptor.getAllValues().get(0).widgetSelected(mock(SelectionEvent.class));
         assertThat(underTest.isDirty).isTrue();
    }
     
@@ -390,6 +397,7 @@ public class LoginControlsBaseTest
         userList.add(TEST_JID);
         userList.add(TEST_JID2);
         when(loginData.getUserList()).thenReturn(userList);
+		when(loginData.getSingleSignonUser()).thenReturn(ssoUser);
         TestLoginControls underTest = new TestLoginControls(loginData, false);
         
         underTest.connectionError = ConnectionError.noError;
@@ -438,7 +446,7 @@ public class LoginControlsBaseTest
         underTest.userSelector = userSelector;
         TextControl passwordText = mock(TextControl.class);
         underTest.passwordText = passwordText;
-        SelectionAdapter selectionAdapter = underTest.getSingleSignonSelectionAdapter();
+        /*
         SelectionEvent event = mock(SelectionEvent.class);
         selectionAdapter.widgetSelected(event);
         assertThat(underTest.hideAllFieldsCount).isEqualTo(1);
@@ -447,6 +455,7 @@ public class LoginControlsBaseTest
         verify(userSelector).startSingleSignonConfig(TEST_JID);
         verify(passwordText).setText("");
         verify(userSelector).setFocus();
+        */
     }
     
     @Test
@@ -455,6 +464,7 @@ public class LoginControlsBaseTest
         LoginData loginData = mock(LoginData.class);
         SessionDetails sessionDetails = mock(SessionDetails.class);
         when(loginData.getSessionDetails()).thenReturn(sessionDetails);
+		when(loginData.getSingleSignonUser()).thenReturn(ssoUser);
         when(sessionDetails.isDirty()).thenReturn(true);
         List<SessionDetails> sessionDetailsList = Collections.singletonList(sessionDetails);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
@@ -462,6 +472,9 @@ public class LoginControlsBaseTest
         UserSelector userSelector = mock(UserSelector.class);
         underTest.userSelector = userSelector;
         when(userSelector.getText()).thenReturn(TEST_JID);
+        ButtonControl singleSignonCheck = mock(ButtonControl.class);
+        when(singleSignonCheck.getSelection()).thenReturn(false);
+        underTest.singleSignonCheck = singleSignonCheck;
         setControls(underTest);
         underTest.okPressed();
         assertThat(underTest.isLoginPending).isTrue();

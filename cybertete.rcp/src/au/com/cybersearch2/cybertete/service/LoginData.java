@@ -51,6 +51,8 @@ public class LoginData
     SessionDetailsSet sessionDetailsSet; 
     /** Collection of session details deleted by the user */
     Set<SessionDetails> deletedSessionDetailsSet; 
+    // Cache for current single signon user
+    volatile String singleSignonUser;
 
     /** Single signon configuration */
     @Inject
@@ -240,7 +242,7 @@ public class LoginData
     }
 
     /**
-     * Persiste last user to successfully login
+     * Persist last user to successfully login
      * @param user User JID
      */
     public void saveLastUser(String user)
@@ -248,6 +250,22 @@ public class LoginData
         setValue(StorageKey.last_user, user);
     }
     
+    /**
+     * Persist single signon user
+     * @param user User JID
+     */
+    public void saveSingleSignonUser(String user)
+    {
+    	singleSignonUser = user;
+        setValue(StorageKey.sso_user, user);
+    }
+
+    public String getSingleSignonUser() 
+    {
+    	if (singleSignonUser == null)
+    		singleSignonUser = userDataStore.getSingleSignonUser();
+    	return singleSignonUser; 
+    }
     /**
      * Persist session details of given user
      * @param user User JID
@@ -315,6 +333,8 @@ public class LoginData
             {
             case last_user: 
                 userDataStore.saveLastUser(value); break;
+            case sso_user:
+            	userDataStore.saveSingleSignonUser(value); break;
             default: break;
             }
         }

@@ -149,10 +149,11 @@ public abstract class LoginControls extends LoginControlsBase
         // Hide all optional fields if current configuration has no password
         // or single signon applies
         SessionDetails sessionDetails = loginData.getSessionDetails();
-        String password = sessionDetails.getPassword();
-        boolean noPassword = (password == null) || password.isEmpty();
-        if (noPassword || (singleSignonEnabled && sessionDetails.isGssapi()))
-            hideAllFields();
+        // TODO - Investigate if no password is special case
+        //String password = sessionDetails.getPassword();
+        //boolean noPassword = ((password == null) || password.isEmpty();
+        if (singleSignonEnabled && isGssapi(sessionDetails)) 
+            showSingleSignonFields();
         // Populate control which displays configured users identified by JID
         initializeUsers();
         return composite;
@@ -202,45 +203,51 @@ public abstract class LoginControls extends LoginControlsBase
 
     /**
      * 
-     * @see au.com.cybersearch2.cybertete.dialogs.AccountSelectionHandler#hideAllFields()
+     * @see au.com.cybersearch2.cybertete.dialogs.AccountSelectionHandler#showSingleSignonFields()
      */
     @Override
-    public void hideAllFields()
+    public void showSingleSignonFields()
     {
-        //jidText.setVisible(false);
-        hostText.setVisible(false);
-        portText.setVisible(false);
-        usernameText.setVisible(false);
+    	//userSelector.selectNewJid();
+    	userSelector.setEnabled(false);
         passwordText.setEnabled(false);
-        plainSasl.setVisible(false);
-        //accountLabel.setVisible(false);
-        // TODO - Why make this label invisible?
-        //jidLabel.setVisible(false);
-        passwordLabel.setVisible(false);
-        hostLabel.setVisible(false);
-        portLabel.setVisible(false);
-        usernameLabel.setVisible(false);
+     	if (isView) 
+    	{
+	        usernameText.setEnabled(false);
+	        plainSasl.setEnabled(false);
+    	}
+    	else
+    	{
+	        usernameText.setVisible(false);
+	        plainSasl.setVisible(false);
+	        passwordLabel.setVisible(false);
+	        usernameLabel.setVisible(false);
+    	}
     }
 
     /**
      * 
-     * @see au.com.cybersearch2.cybertete.dialogs.AccountSelectionHandler#showAllFields()
+     * @see au.com.cybersearch2.cybertete.dialogs.AccountSelectionHandler#hideSingleSignonFields()
      */
     @Override
-    public void showAllFields()
+    public void hideSingleSignonFields()
     {
-        //jidText.setVisible(true);
-        hostText.setVisible(true);
-        portText.setVisible(true);
-        usernameText.setVisible(true);
+    	userSelector.selectCurrentJid();
+    	userSelector.setEnabled(true);
         passwordText.setEnabled(true);
-        plainSasl.setVisible(true);
-        //accountLabel.setVisible(true);
-        //jidLabel.setVisible(true);
-        passwordLabel.setVisible(true);
-        hostLabel.setVisible(true);
-        portLabel.setVisible(true);
-        usernameLabel.setVisible(true);
+    	if (isView) 
+    	{
+	        usernameText.setEnabled(true);
+	        plainSasl.setEnabled(true);
+    	}
+    	else
+    	{
+	        usernameText.setVisible(true);
+	        plainSasl.setVisible(true);
+	        passwordLabel.setVisible(true);
+	        portLabel.setVisible(true);
+	        usernameLabel.setVisible(true);
+    	}
     }
 
     /**
@@ -282,6 +289,9 @@ public abstract class LoginControls extends LoginControlsBase
         }
         // Clear password, host and port text controls
         ChatAccount account = getAccount();
+        //boolean enableSingleSignon = !isPasswordMandatory();
+        //singleSignonCheck.setSelection((account != null) && account.isGssapi());
+        //singleSignonCheck.setEnabled(enableSingleSignon);
         if (account == null)
         {
             passwordText.setText("");
@@ -319,8 +329,8 @@ public abstract class LoginControls extends LoginControlsBase
         if (passwordText.isEnabled())
             passwordText.setText(account.getPassword());
         // Show all optional fields unless SSO
-        if (!account.isGssapi() && !isGssapi())
-            showAllFields();
+        if (!isGssapi(account) && !isGssapi())
+            hideSingleSignonFields();
         isDirty = false;
     }
 }

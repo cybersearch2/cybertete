@@ -72,16 +72,6 @@ public class StorageSupportTest
         when(underTest.preferences.node(PREFERENCES_ROOT)).thenReturn(node);
         when(node.get("host", "")).thenReturn(TEST_HOST);
         assertThat(underTest.getValue(PREFERENCES_ROOT, StorageKey.host, "")).isEqualTo(TEST_HOST);
-         node = mock(Preferences.class);
-        when(underTest.preferences.node(PREFERENCES_ROOT)).thenReturn(node);
-        underTest.prefsDirty = false;
-        underTest.setBoolean(PREFERENCES_ROOT, StorageKey.single_signon, true);
-        verify(node).putBoolean("prefs_single_signon", true);
-        assertThat(underTest.prefsDirty).isTrue();
-        node = mock(Preferences.class);
-        when(underTest.preferences.node(PREFERENCES_ROOT)).thenReturn(node);
-        when(node.getBoolean("prefs_single_signon", false)).thenReturn(true);
-        assertThat(underTest.getBoolean(PREFERENCES_ROOT, StorageKey.single_signon, false)).isEqualTo(true);
     }
 
     @Test
@@ -111,8 +101,7 @@ public class StorageSupportTest
         Preferences node = mock(Preferences.class);
         when(underTest.preferences.node(PREFERENCES_ROOT)).thenReturn(node);
         when(node.keys()).thenReturn(new String[] {"host","port","authcid","plain_sasl","prefs_single_signon"});
-        underTest.removeAttributes(PREFERENCES_ROOT, StorageKey.single_signon, StorageKey.auth_cid);
-        verify(node).remove("prefs_single_signon");
+        underTest.removeAttributes(PREFERENCES_ROOT, StorageKey.auth_cid);
         verify(node).remove("authcid");
      }
     
@@ -123,8 +112,7 @@ public class StorageSupportTest
         Preferences node = mock(Preferences.class);
         when(underTest.preferences.node(PREFERENCES_ROOT)).thenReturn(node);
         when(node.keys()).thenReturn(new String[] {"host","port","authcid","plain_sasl"});
-        underTest.removeAttributes(PREFERENCES_ROOT, StorageKey.single_signon, StorageKey.auth_cid);
-        verify(node, times(0)).remove("prefs_single_signon");
+        underTest.removeAttributes(PREFERENCES_ROOT, StorageKey.auth_cid);
         verify(node).remove("authcid");
      }
 }

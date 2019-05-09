@@ -150,4 +150,13 @@ public class ComboControl
     {
         return combo.setFocus();
     }
+ 
+    /**
+     * Set combo enabled state
+     * @param isEnabled Value to set
+     */
+    public void setEnabled(boolean isEnabled)
+    {
+    	combo.setEnabled(isEnabled);
+    }
 }

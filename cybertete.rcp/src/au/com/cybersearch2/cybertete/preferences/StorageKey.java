@@ -27,7 +27,6 @@ public enum StorageKey implements PrefKey
     host,
     port,
     auth_cid,
-    single_signon,
     plain_sasl,
     password,
     last_user,
@@ -35,7 +34,9 @@ public enum StorageKey implements PrefKey
     client_cert_auth,
     keystore_type,
     keystore_file,
-    keystore_password;
+    keystore_password,
+    sso_user,
+    null_key;
 
     private String preference;
     
@@ -44,7 +45,6 @@ public enum StorageKey implements PrefKey
         host.preference = PreferenceConstants.HOST;
         port.preference = PreferenceConstants.PORT;
         auth_cid.preference = PreferenceConstants.AUTH_CID;
-        single_signon.preference = PreferenceConstants.SINGLE_SIGNON;
         plain_sasl.preference = PreferenceConstants.PLAIN_SASL;
         password.preference = PreferenceConstants.PASSWORD;
         last_user.preference = PreferenceConstants.LAST_USER;
@@ -53,6 +53,8 @@ public enum StorageKey implements PrefKey
         keystore_type.preference = PreferenceConstants.KEYSTORE_TYPE;
         keystore_file.preference = PreferenceConstants.KEYSTORE_FILE;
         keystore_password.preference = PreferenceConstants.KEYSTORE_PASSWORD;
+        sso_user.preference = PreferenceConstants.SSO_USER;
+        null_key.preference = "";
     }
 
     @Override
@@ -63,18 +65,21 @@ public enum StorageKey implements PrefKey
     
     public static StorageKey toStorageKey(String preference)
     {
-        if (preference.equals(PreferenceConstants.HOST))
-            return host;
-        else if (preference.equals(PreferenceConstants.PORT))
-            return port;
-        else if (preference.equals(PreferenceConstants.AUTH_CID))
-            return auth_cid;
-        else if (preference.equals(PreferenceConstants.SINGLE_SIGNON))
-            return single_signon;
-        else if (preference.equals(PreferenceConstants.PLAIN_SASL))
-            return plain_sasl;
-        else if (preference.equals(PreferenceConstants.PASSWORD))
-            return password;
-        return null;
+    	switch(preference)
+    	{
+    	case PreferenceConstants.HOST: return host;
+    	case PreferenceConstants.PORT: return port;
+    	case PreferenceConstants.AUTH_CID: return auth_cid;
+    	case PreferenceConstants.PLAIN_SASL: return plain_sasl;
+    	case PreferenceConstants.PASSWORD: return password;
+    	case PreferenceConstants.LAST_USER: return last_user;
+    	case PreferenceConstants.AUTO_LOGIN: return auto_login;
+    	case PreferenceConstants.CLIENT_CERT_AUTH: return client_cert_auth;
+    	case PreferenceConstants.KEYSTORE_TYPE: return keystore_type;
+    	case PreferenceConstants.KEYSTORE_FILE: return keystore_file;
+    	case PreferenceConstants.KEYSTORE_PASSWORD: return keystore_password;
+    	case PreferenceConstants.SSO_USER: return sso_user;
+        default: return null_key;
+    	}
     }
 }

@@ -56,12 +56,12 @@ public interface AccountSelectionHandler extends Listener
     void showPlainSasl();
     
     /**
-     * Show all fields controlled by this handler
+     * Show all single signon fields controlled by this handler
      */
-    void showAllFields();
+    void hideSingleSignonFields();
     
     /**
-     * Hide all fields controlled by this handler
+     * Hide all single signon fields controlled by this handler
      */
-    void hideAllFields();
+    void showSingleSignonFields();
 }

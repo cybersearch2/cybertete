@@ -148,7 +148,7 @@ public class UserSelectorTest
         when(controlFactory.comboInstance(composite, SWT.BORDER)).thenReturn(mock(Combo.class));
         UserSelector underTest = new UserSelector(controlFactory, composite, listener);
         underTest.jidText = jidText;
-        when(jidText.indexOf(TEST_JID + "@")).thenReturn(2);
+        when(jidText.indexOf(TEST_JID)).thenReturn(2);
         underTest.jidText = jidText;
         underTest.startSingleSignonConfig(TEST_JID);
         verify(jidText).select(2);
@@ -169,9 +169,9 @@ public class UserSelectorTest
         when(controlFactory.comboInstance(composite, SWT.BORDER)).thenReturn(mock(Combo.class));
         UserSelector underTest = new UserSelector(controlFactory, composite, listener);
         underTest.jidText = jidText;
-        when(jidText.indexOf(TEST_JID + "@")).thenReturn(-1, 0);
+        when(jidText.indexOf(TEST_JID)).thenReturn(-1, 0);
         underTest.startSingleSignonConfig(TEST_JID);
-        verify(jidText).add(TEST_JID + "@");
+        verify(jidText).add(TEST_JID);
         verify(jidText).select(0);
    }
 

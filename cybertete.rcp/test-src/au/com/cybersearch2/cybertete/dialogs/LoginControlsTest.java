@@ -65,6 +65,7 @@ public class LoginControlsTest
         List<SessionDetails> sessionDetailsList = Collections.emptyList();
         when(loginData.isAutoLogin()).thenReturn(true);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
+        when(loginData.getSingleSignonUser()).thenReturn("");
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
         LoginControls loginControls = new LoginControls(loginData, false, configNotifier)
         {
@@ -122,7 +123,8 @@ public class LoginControlsTest
         when(sessionDetails.getPassword()).thenReturn(TEST_PASSWORD);
         when(sessionDetails.getJid()).thenReturn(TEST_JID);
         when(loginData.getSessionDetails()).thenReturn(sessionDetails);
-        List<SessionDetails> sessionDetailsList = Collections.emptyList();
+        when(loginData.getSingleSignonUser()).thenReturn("");
+       List<SessionDetails> sessionDetailsList = Collections.emptyList();
         when(loginData.isAutoLogin()).thenReturn(true);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
@@ -161,64 +163,6 @@ public class LoginControlsTest
         when(controlFactory.textInstance(composite, SWT.BORDER)).thenReturn(hostText, portText, usernameText);
         loginControls.createDialogArea(controlFactory, parent);
         verify(composite).setLayout(isA(GridLayout.class));
-    }
-    
-    @Test
-    public void test_createDialogArea_for_view_no_password()
-    {
-        LoginData loginData = mock(LoginData.class);
-        SessionDetails sessionDetails = mock(SessionDetails.class);
-        when(sessionDetails.getPassword()).thenReturn("");
-        when(sessionDetails.getJid()).thenReturn(TEST_JID);
-        when(loginData.getSessionDetails()).thenReturn(sessionDetails);
-        List<SessionDetails> sessionDetailsList = Collections.emptyList();
-        when(loginData.isAutoLogin()).thenReturn(true);
-        when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
-        ConfigNotifier configNotifier = mock(ConfigNotifier.class);
-        LoginControls loginControls = new LoginControls(loginData, true, configNotifier)
-        {
-            @Override
-            protected void login()
-            {
-                
-            }
-        };
-        ControlFactory controlFactory = mock(ControlFactory.class);
-        Composite parent = mock(Composite.class);
-        Composite composite = mock(Composite.class);
-        when(controlFactory.compositeInstance(parent)).thenReturn(composite);
-        Label accountLabel = mock(Label.class);
-        Label jidLabel = mock(Label.class);
-        Combo jidText = mock(Combo.class);
-        when(jidText.getItems()).thenReturn(new String[] {});
-        when(jidText.indexOf(TEST_JID)).thenReturn(-1, 1);
-        Label passwordLabel = mock(Label.class);
-        Text passwordText = mock(Text.class);
-        Label optionsLabel = mock(Label.class);
-        Button autoLoginCheck = mock(Button.class);
-        Button plainSasl = mock(Button.class);
-        when(controlFactory.buttonInstance(composite, SWT.CHECK)).thenReturn(autoLoginCheck, plainSasl);
-        when(controlFactory.comboInstance(composite, SWT.BORDER)).thenReturn(jidText);
-        when(controlFactory.textInstance(composite, SWT.BORDER | SWT.PASSWORD)).thenReturn(passwordText);
-        Label hostLabel = mock(Label.class);
-        Label portLabel = mock(Label.class);
-        Label usernameLabel = mock(Label.class);
-        when(controlFactory.labelInstance(composite, SWT.NONE)).thenReturn(accountLabel, jidLabel, passwordLabel, optionsLabel, hostLabel, portLabel, usernameLabel);
-        Text hostText = mock(Text.class);
-        Text portText = mock(Text.class);
-        Text usernameText = mock(Text.class);
-        when(controlFactory.textInstance(composite, SWT.BORDER)).thenReturn(hostText, portText, usernameText);
-        loginControls.createDialogArea(controlFactory, parent);
-        verify(composite).setLayout(isA(GridLayout.class));
-        verify(hostText).setVisible(false);
-        verify(portText).setVisible(false);
-        verify(usernameText).setVisible(false);
-        verify(passwordText).setEnabled(false);
-        verify(plainSasl).setVisible(false);
-        verify(passwordLabel).setVisible(false);
-        verify(hostLabel).setVisible(false);
-        verify(portLabel).setVisible(false);
-        verify(usernameLabel).setVisible(false);
     }
     
     @Test
@@ -228,11 +172,11 @@ public class LoginControlsTest
         SessionDetails sessionDetails = mock(SessionDetails.class);
         when(sessionDetails.getPassword()).thenReturn(TEST_PASSWORD);
         when(sessionDetails.getJid()).thenReturn(TEST_JID);
-        when(sessionDetails.isGssapi()).thenReturn(true);
         when(loginData.getSessionDetails()).thenReturn(sessionDetails);
         List<SessionDetails> sessionDetailsList = Collections.emptyList();
         when(loginData.isAutoLogin()).thenReturn(true);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
+        when(loginData.getSingleSignonUser()).thenReturn(TEST_JID);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
         LoginControls loginControls = new LoginControls(loginData, true, configNotifier)
         {
@@ -270,15 +214,9 @@ public class LoginControlsTest
         when(controlFactory.textInstance(composite, SWT.BORDER)).thenReturn(hostText, portText, usernameText);
         loginControls.createDialogArea(controlFactory, parent);
         verify(composite).setLayout(isA(GridLayout.class));
-        verify(hostText).setVisible(false);
-        verify(portText).setVisible(false);
-        verify(usernameText).setVisible(false);
+        verify(usernameText).setEnabled(false);
         verify(passwordText).setEnabled(false);
-        verify(plainSasl).setVisible(false);
-        verify(passwordLabel).setVisible(false);
-        verify(hostLabel).setVisible(false);
-        verify(portLabel).setVisible(false);
-        verify(usernameLabel).setVisible(false);
+        verify(plainSasl).setEnabled(false);
     }
 
     @Test
@@ -395,6 +333,7 @@ public class LoginControlsTest
         loginControls.hostLabel = mock(LabelControl.class);
         loginControls.portLabel = mock(LabelControl.class);
         loginControls.usernameLabel = mock(LabelControl.class);
+        /*
         loginControls.showAllFields();
         verify(loginControls.hostText).setVisible(true);
         verify(loginControls.portText).setVisible(true);
@@ -405,6 +344,7 @@ public class LoginControlsTest
         verify(loginControls.hostLabel).setVisible(true);
         verify(loginControls.portLabel).setVisible(true);
         verify(loginControls.usernameLabel).setVisible(true);
+        */
     }
 
     @Test
@@ -419,6 +359,7 @@ public class LoginControlsTest
         when(sessionDetails.getPassword()).thenReturn(TEST_PASSWORD);
         List<SessionDetails> sessionDetailsList = Collections.singletonList(sessionDetails);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
+        when(loginData.getSingleSignonUser()).thenReturn("");
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
         LoginControls loginControls = new LoginControls(loginData, false, configNotifier)
         {
@@ -472,14 +413,10 @@ public class LoginControlsTest
         verify(usernameContent).setVisible(true);
         verify(plainSaslContent).setVisible(true);
         verify(parent, times(3)).pack();
-        verify(loginControls.hostText).setVisible(true);
-        verify(loginControls.portText).setVisible(true);
         verify(loginControls.usernameText).setVisible(true);
         verify(loginControls.passwordText).setEnabled(true);
         verify(loginControls.plainSasl).setVisible(true);
         verify(loginControls.passwordLabel).setVisible(true);
-        verify(loginControls.hostLabel).setVisible(true);
-        verify(loginControls.portLabel).setVisible(true);
         verify(loginControls.usernameLabel).setVisible(true);
     }
     
@@ -492,9 +429,9 @@ public class LoginControlsTest
         when(sessionDetails.getAuthcid()).thenReturn("");
         when(sessionDetails.isPlainSasl()).thenReturn(false);
         when(sessionDetails.getPassword()).thenReturn("");
-        when(sessionDetails.isGssapi()).thenReturn(true);
         List<SessionDetails> sessionDetailsList = Collections.singletonList(sessionDetails);
         when(loginData.getAllSessionDetails()).thenReturn(sessionDetailsList);
+        when(loginData.getSingleSignonUser()).thenReturn(TEST_JID);
         ConfigNotifier configNotifier = mock(ConfigNotifier.class);
         LoginControls loginControls = new LoginControls(loginData, false, configNotifier)
         {

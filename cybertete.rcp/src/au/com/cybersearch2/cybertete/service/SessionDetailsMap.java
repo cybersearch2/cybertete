@@ -131,7 +131,6 @@ public class SessionDetailsMap extends StorageSupport
             case host: getHost(path, sessionDetails); break;
             case auth_cid: getAuthCid(path, sessionDetails); break;
             case plain_sasl: getPlainSasl(path, sessionDetails); break;
-            case single_signon: getSingleSignon(path, sessionDetails); break;
             default: break;
             }
         }
@@ -146,16 +145,6 @@ public class SessionDetailsMap extends StorageSupport
     String getPassword(String user)
     {
         return getSecureValue(user, StorageKey.password);
-    }
-
-    /**
-     * Set single signon config
-     * @param path Absolute path for storage location
-     * @param sessionDetails Configuration object to set
-     */
-    void getSingleSignon(String path, SessionDetails sessionDetails)
-    {
-        sessionDetails.setGssapi(getBoolean(path, StorageKey.single_signon, false));
     }
 
     /**
@@ -212,7 +201,6 @@ public class SessionDetailsMap extends StorageSupport
         String path = root + "/" + user;
         setHost(sessionDetails, path);
         setAuthCid(sessionDetails, path);
-        setSingleSignon(sessionDetails, path);
         setPlainSasl(sessionDetails, path);
         setPassword(user, sessionDetails);
     }
@@ -230,16 +218,6 @@ public class SessionDetailsMap extends StorageSupport
         setSecureValue(jid, StorageKey.password, password);
     }
     
-    /**
-     * Sets single signon config
-     * @param sessionDetails Session details configuration to set
-     * @param path Absolute path for storage location
-     */
-    void setSingleSignon(SessionDetails sessionDetails, String path)
-    {
-        setBoolean(path, StorageKey.single_signon, sessionDetails.isGssapi());
-    }
-
     /**
      * Sets plain SASL
      * @param sessionDetails Session details configuration to set
@@ -302,7 +280,4 @@ public class SessionDetailsMap extends StorageSupport
         }
         flush();
     }
-
-
-
 }

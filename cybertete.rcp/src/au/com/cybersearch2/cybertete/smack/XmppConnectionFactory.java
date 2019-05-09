@@ -27,7 +27,9 @@ import org.jivesoftware.smack.ReconnectionManager.ReconnectionPolicy;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration.Builder;
 
+import au.com.cybersearch2.cybertete.model.service.ChatAccount;
 import au.com.cybersearch2.cybertete.model.service.SessionDetails;
+import au.com.cybersearch2.cybertete.preferences.UserDataStore;
 import au.com.cybersearch2.cybertete.service.ChainHostnameVerifier;
 
 /**
@@ -58,6 +60,9 @@ public class XmppConnectionFactory
     /** Hooks host verifier to access SSL details and extract certificates */
     @Inject
     ChainHostnameVerifier chainHostnameVerifier;
+    /** Login configuration saved as preferences */
+    @Inject
+    UserDataStore userDataStore;
     
     /**
      * Artifact factory to create Smack library objects. 
@@ -132,14 +137,19 @@ public class XmppConnectionFactory
         configBuilder.setSendPresence(sendPresence); 
         String password = sessionDetails.getPassword();
         boolean noPassword = (password == null) || password.isEmpty();
-        if (noPassword || sessionDetails.isGssapi())
+        if (noPassword || isGssapi(sessionDetails))
             configBuilder.allowEmptyOrNullUsernames();
         else
             configBuilder.setUsernameAndPassword(sessionDetails.getUsername(), sessionDetails.getPassword());
         configBuilder.setResource(SmackChatService.DEFAULT_RESOURCE);
-        configBuilder.setServiceName(parseDomain(sessionDetails.getJid()));
-        configBuilder.setCustomSSLContext(sslContext);
         String host = sessionDetails.getHost();
+        String jid = sessionDetails.getJid();
+        if (isGssapi(sessionDetails))
+        	 // Assume service name matches host. TODO - Allow service name to be configured
+       	     configBuilder.setServiceName(host);
+        else
+             configBuilder.setServiceName(parseDomain(jid));
+        configBuilder.setCustomSSLContext(sslContext);
         if ((host != null) && !host.isEmpty())
         {
             configBuilder.setHost(host);
@@ -151,5 +161,10 @@ public class XmppConnectionFactory
         configBuilder.setHostnameVerifier(chainHostnameVerifier);
         return configBuilder;
     }
+
+    protected boolean isGssapi(ChatAccount sessionDetails) {
+		String singleSignonUser = userDataStore.getSingleSignonUser();
+		return !singleSignonUser.isEmpty() && singleSignonUser.equalsIgnoreCase(sessionDetails.getJid()) ;
+	}
 
 }

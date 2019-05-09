@@ -16,9 +16,7 @@
 package au.com.cybersearch2.cybertete.service;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +26,7 @@ import org.junit.Test;
 import org.osgi.service.prefs.BackingStoreException;
 
 import au.com.cybersearch2.cybertete.model.service.SessionDetails;
+import au.com.cybersearch2.cybertete.preferences.PreferenceConstants;
 import au.com.cybersearch2.e4.SecureStorage;
 
 /**
@@ -59,6 +58,22 @@ public class SessionDetailsMapTest
     static final String TEST_HOST2 = "google.talk";
     static final String TEST_USERNAME1 = "donald";
     static final String TEST_USERNAME2 = "hilliary";
+    
+    static final String[] STORAGE_KEYS =
+    	{
+			PreferenceConstants.HOST,
+			PreferenceConstants.PORT,
+			PreferenceConstants.AUTH_CID,
+			PreferenceConstants.PLAIN_SASL,
+			PreferenceConstants.PASSWORD,
+			PreferenceConstants.LAST_USER,
+			PreferenceConstants.AUTO_LOGIN,
+			PreferenceConstants.CLIENT_CERT_AUTH,
+			PreferenceConstants.KEYSTORE_TYPE,
+			PreferenceConstants.KEYSTORE_FILE,
+			PreferenceConstants.KEYSTORE_PASSWORD,
+			PreferenceConstants.SSO_USER
+    	};
 
     @Test
     public void test_saveSessionDetails() throws BackingStoreException, IOException
@@ -73,8 +88,7 @@ public class SessionDetailsMapTest
         when(sessionDetails1.getPort()).thenReturn(5222);
         when(sessionDetails1.getAuthcid()).thenReturn(TEST_USERNAME1);
         when(sessionDetails1.isPlainSasl()).thenReturn(false);
-        when(sessionDetails1.isGssapi()).thenReturn(false);
-        when(sessionDetails1.getPassword()).thenReturn(TEST_PASSWORD);
+         when(sessionDetails1.getPassword()).thenReturn(TEST_PASSWORD);
         underTest.sessionDetailsMap.put(TEST_JID, sessionDetails1);
         IEclipsePreferences node1 = mock(IEclipsePreferences.class);
         String PATH1 = ROOT + "/" + TEST_JID;
@@ -86,7 +100,6 @@ public class SessionDetailsMapTest
         when(sessionDetails2.getPort()).thenReturn(5223);
         when(sessionDetails2.getAuthcid()).thenReturn(TEST_USERNAME2);
         when(sessionDetails2.isPlainSasl()).thenReturn(true);
-        when(sessionDetails2.isGssapi()).thenReturn(true);
         when(sessionDetails2.getPassword()).thenReturn(TEST_PASSWORD2);
         underTest.sessionDetailsMap.put(TEST_JID2, sessionDetails2);
         IEclipsePreferences node2 = mock(IEclipsePreferences.class);
@@ -97,13 +110,11 @@ public class SessionDetailsMapTest
         verify(node1).put("port", "5222");
         verify(node1).put("authcid", TEST_USERNAME1);
         verify(node1).putBoolean("plain_sasl", false);
-        verify(node1).putBoolean("prefs_single_signon", false);
         verify(secureStorage).secureSave(TEST_JID, "password", TEST_PASSWORD);
         verify(node2).put("host", TEST_HOST2);
         verify(node2).put("port", "5223");
         verify(node2).put("authcid", TEST_USERNAME2);
         verify(node2).putBoolean("plain_sasl", true);
-        verify(node2).putBoolean("prefs_single_signon", true);
         verify(secureStorage).secureSave(TEST_JID2, "password", TEST_PASSWORD2);
         verify(preferences).flush();
         verify(secureStorage).flush();
@@ -124,7 +135,6 @@ public class SessionDetailsMapTest
         when(sessionDetails1.getPort()).thenReturn(0);
         when(sessionDetails1.getAuthcid()).thenReturn(null);
         when(sessionDetails1.isPlainSasl()).thenReturn(false);
-        when(sessionDetails1.isGssapi()).thenReturn(false);
         when(sessionDetails1.getPassword()).thenReturn(null);
         underTest.sessionDetailsMap.put(TEST_JID, sessionDetails1);
         IEclipsePreferences node1 = mock(IEclipsePreferences.class);
@@ -136,7 +146,6 @@ public class SessionDetailsMapTest
         verify(node1).remove("port");
         verify(node1).remove("authcid");
         verify(node1).putBoolean("plain_sasl", false);
-        verify(node1).putBoolean("prefs_single_signon", false);
         verify(secureStorage).secureSave(TEST_JID, "password", "");
         verify(preferences).flush();
         verify(secureStorage).flush();
@@ -155,10 +164,10 @@ public class SessionDetailsMapTest
         when(secureStorage.secureGet(TEST_JID, "password")).thenReturn(TEST_PASSWORD);
         when(secureStorage.secureGet(TEST_JID2, "password")).thenReturn(TEST_PASSWORD2);
         IEclipsePreferences node1 = mock(IEclipsePreferences.class);
-        when(node1.keys()).thenReturn(new String[]{"host", "port", "authcid", "plain_sasl", "prefs_single_signon"});
+        when(node1.keys()).thenReturn(new String[]{"host", "port", "authcid", "plain_sasl"});
         String PATH1 = ROOT + "/" + TEST_JID;
         IEclipsePreferences node2 = mock(IEclipsePreferences.class);
-        when(node2.keys()).thenReturn(new String[]{"host", "port", "authcid", "plain_sasl", "prefs_single_signon"});
+        when(node2.keys()).thenReturn(new String[]{"host", "port", "authcid", "plain_sasl"});
         String PATH2 = ROOT + "/" + TEST_JID2;
         when(preferences.node(PATH2)).thenReturn(node2);
         when(preferences.node(PATH1)).thenReturn(node1);
@@ -178,7 +187,6 @@ public class SessionDetailsMapTest
         assertThat(sessionDetails1.getPort()).isEqualTo(5222);
         assertThat(sessionDetails1.getPassword()).isEqualTo(TEST_PASSWORD);
         assertThat(sessionDetails1.getAuthcid()).isEqualTo(TEST_USERNAME1);
-        assertThat(sessionDetails1.isGssapi()).isFalse();
         assertThat(sessionDetails1.isPlainSasl()).isFalse();
         assertThat(sessionDetails1.isDirty()).isTrue();
         SessionDetails sessionDetails2 = underTest.sessionDetailsMap.get(TEST_JID2);
@@ -186,7 +194,6 @@ public class SessionDetailsMapTest
         assertThat(sessionDetails2.getPort()).isEqualTo(5223);
         assertThat(sessionDetails2.getPassword()).isEqualTo(TEST_PASSWORD2);
         assertThat(sessionDetails2.getAuthcid()).isEqualTo(TEST_USERNAME2);
-        assertThat(sessionDetails2.isGssapi()).isTrue();
         assertThat(sessionDetails2.isPlainSasl()).isTrue();
         assertThat(sessionDetails2.isDirty()).isTrue();
     }
@@ -202,9 +209,10 @@ public class SessionDetailsMapTest
         when(preferences.node(ROOT)).thenReturn(node);
         when(secureStorage.secureGet(TEST_JID, "password")).thenReturn("");
         IEclipsePreferences node1 = mock(IEclipsePreferences.class);
-        when(node1.keys()).thenReturn(new String[]{"plain_sasl", "prefs_single_signon"});
+        when(node1.keys()).thenReturn(STORAGE_KEYS);
         String PATH1 = ROOT + "/" + TEST_JID;
         when(preferences.node(PATH1)).thenReturn(node1);
+        when(node1.get(isA(String.class), isA(String.class))).thenReturn("");
         when(node1.getBoolean("plain_sasl", false)).thenReturn(false);
         when(node1.getBoolean("prefs_single_signon", false)).thenReturn(false);
         underTest.loadSessionDetails(ROOT);
@@ -213,7 +221,6 @@ public class SessionDetailsMapTest
         assertThat(sessionDetails1.getPort()).isEqualTo(0);
         assertThat(sessionDetails1.getPassword()).isEmpty();
         assertThat(sessionDetails1.getAuthcid()).isNull();
-        assertThat(sessionDetails1.isGssapi()).isFalse();
         assertThat(sessionDetails1.isPlainSasl()).isFalse();
         assertThat(sessionDetails1.isDirty()).isTrue();
     }
@@ -229,20 +236,18 @@ public class SessionDetailsMapTest
         when(preferences.node(ROOT)).thenReturn(node);
         when(secureStorage.secureGet(TEST_JID, "password")).thenReturn("");
         IEclipsePreferences node1 = mock(IEclipsePreferences.class);
-        when(node1.keys()).thenReturn(new String[]{"host", "plain_sasl", "prefs_single_signon"});
+        when(node1.keys()).thenReturn(new String[]{"host", "plain_sasl"});
         String PATH1 = ROOT + "/" + TEST_JID;
         when(preferences.node(PATH1)).thenReturn(node1);
         when(node1.get("host", "")).thenReturn(TEST_HOST1);
         when(node1.get("port", "")).thenReturn("");
         when(node1.getBoolean("plain_sasl", false)).thenReturn(false);
-        when(node1.getBoolean("prefs_single_signon", false)).thenReturn(false);
         underTest.loadSessionDetails(ROOT);
         SessionDetails sessionDetails1 = underTest.sessionDetailsMap.get(TEST_JID);
         assertThat(sessionDetails1.getHost()).isEqualTo(TEST_HOST1);
         assertThat(sessionDetails1.getPort()).isEqualTo(0);
         assertThat(sessionDetails1.getPassword()).isEmpty();
         assertThat(sessionDetails1.getAuthcid()).isNull();
-        assertThat(sessionDetails1.isGssapi()).isFalse();
         assertThat(sessionDetails1.isPlainSasl()).isFalse();
         assertThat(sessionDetails1.isDirty()).isTrue();
     }

@@ -56,6 +56,33 @@ public class UserSelector
         jidText.addListener(SWT.Selection , listener);
     }
 
+    /**
+     * Set combo enabled state
+     * @param isEnabled Value to set
+     */
+    public void setEnabled(boolean isEnabled)
+    {
+    	jidText.setEnabled(isEnabled);
+    }
+ 
+    public void selectNewJid() 
+    {
+    	jidText.select(0);
+    }
+
+	public void select(String jid) 
+	{
+        int index = jidText.indexOf(jid);
+        if (index < 0)
+			jidText.select(0);
+	}
+
+    public void selectCurrentJid() 
+    {
+    	int index = jidText.getItems().length > 1 ? 1 : 0;
+    	jidText.select(index);
+    }
+    
     protected void clear()
     {
         // Combo removeAll() required to correctly reset it if it contains items
@@ -66,8 +93,9 @@ public class UserSelector
     
     /**
      *  Update JID combo using current Login configuration data   
+     *  @return currently selected JID or empty string if none configured
      */
-    protected void initializeUsers(List<String> userList) 
+    protected String initializeUsers(List<String> userList) 
     {   // Add JID set. The first item on the list is the current item.
         String selection1 = null;
         if (userList.size() > 0)
@@ -87,22 +115,21 @@ public class UserSelector
             setJid(jid);
         // Select current JID
         jidText.select(index);
+        return getText();
     }
 
-    /**
-     * Set JID for Single Signon, which is the SSO username + "@".
-     * The user is to fill in the host to complete the entry.
+	/**
+     * Set JID for Single Signon
      * @param gssapiPrincipal
      */
     protected void startSingleSignonConfig(String gssapiPrincipal)
     {
-        String gssapiJid = gssapiPrincipal + "@";
         // Select this item if it already exists, otherwise create it
-        int index = jidText.indexOf(gssapiJid);
+        int index = jidText.indexOf(gssapiPrincipal);
         if (index < 0)
         {
-            setJid(gssapiJid);
-            index = jidText.indexOf(gssapiJid);
+            setJid(gssapiPrincipal);
+            index = jidText.indexOf(gssapiPrincipal);
         }
         jidText.select(index);
     }
@@ -128,4 +155,5 @@ public class UserSelector
     {
         jidText.add(jid);
     }
+
 }

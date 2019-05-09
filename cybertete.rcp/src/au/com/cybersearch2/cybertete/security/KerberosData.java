@@ -23,6 +23,7 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.security.auth.login.AppConfigurationEntry;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 
@@ -80,7 +81,8 @@ public class KerberosData
     		return false;
         try
         {
-            return securityResources.getAppConfigurationEntry().length > 0;
+        	AppConfigurationEntry[] appConfig = securityResources.getAppConfigurationEntry();
+            return appConfig != null ? appConfig.length > 0 : false;
         }
         catch (SecurityException e)
         {
@@ -113,9 +115,6 @@ public class KerberosData
                 if (principals.size() > 0)
                 {
                     gssapiPrincipal = principals.iterator().next().toString().toLowerCase();
-                    int pos = gssapiPrincipal.indexOf('@');
-                    if (pos != -1)
-                        gssapiPrincipal = gssapiPrincipal.substring(0, pos);
                 }
                 lc.logout();
             } 

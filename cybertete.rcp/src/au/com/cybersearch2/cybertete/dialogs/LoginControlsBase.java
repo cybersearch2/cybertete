@@ -25,6 +25,7 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 
 import au.com.cybersearch2.controls.ButtonControl;
 import au.com.cybersearch2.controls.ControlFactory;
@@ -55,6 +56,7 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
     protected TextControl passwordText;
     protected ButtonControl autoLoginCheck;
     protected ButtonControl plainSasl;
+    protected ButtonControl singleSignonCheck;
     protected LabelControl accountLabel;
     protected LabelControl optionsLabel;
     protected LabelControl passwordLabel;
@@ -101,6 +103,29 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
         }
     };
  
+    /** Adjust controls when single signon check clicked */
+    SelectionAdapter singleSignonListener = new SelectionAdapter() {
+        
+        public void widgetSelected(SelectionEvent event) 
+        {
+            boolean isChecked = singleSignonCheck.getSelection();
+            if (isChecked) 
+            {
+            	for (SessionDetails sessionDetails: loginData.getAllSessionDetails()) 
+            	{
+            		if (isGssapi(sessionDetails))
+            		{
+            			userSelector.select(sessionDetails.getJid());
+            		}
+            	}
+            	showSingleSignonFields();
+            }
+            else
+            	hideSingleSignonFields();
+        }
+
+    };
+ 
     /** Only allow valid port number values */
     VerifyListener portListener = new VerifyListener() {  
         @Override  
@@ -125,7 +150,7 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
         // Set flag for SSO enabled if any JID is configured for SSO
         for (SessionDetails sessionDetails: loginData.getAllSessionDetails())
         {
-            if (sessionDetails.isGssapi())
+            if (isGssapi(sessionDetails))
             {
                 singleSignonEnabled = true;
                 break;
@@ -136,7 +161,7 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
             singleSignonEnabled = loginData.isSingleSignonEnabled();
     }
 
-    /**
+	/**
      * Update saved login configuration
      * @param loginBean Java bean contains values to be persisted from Login dialog/view
      */
@@ -184,6 +209,13 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
         autoLoginCheck.setLayoutData(autoLoginCheckLayout);
         autoLoginCheck.setSelection(loginData.isAutoLogin());
         autoLoginCheck.addSelectionListener(selectionListener);
+        // Single signon check
+        singleSignonCheck = new ButtonControl(controlFactory, composite, SWT.CHECK);
+        singleSignonCheck.setText("Login using network account");
+        GridData singleSignonLayout =
+                new GridData(SWT.BEGINNING, SWT.CENTER, true, true, 2, 1);    
+        singleSignonCheck.setLayoutData(singleSignonLayout);
+        singleSignonCheck.addSelectionListener(singleSignonListener);
     }
 
     /**
@@ -275,9 +307,8 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
         {
             this.gssapiPrincipal = gssapiPrincipal;
             startSingleSignonConfig(gssapiPrincipal);
-            // TODO - Check if hideAllFields needed
-            //hideAllFields();
-            userSelector.setFocus();
+    	    LoginConfig loginConfig = getLoginConfig(userSelector.getText());
+          	applyChanges(loginConfig);
         }
     }
 
@@ -312,6 +343,11 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
     {
         return singleSignonEnabled;
     }
+
+    protected boolean isGssapi(ChatAccount sessionDetails) {
+		String singleSignonUser = loginData.getSingleSignonUser();
+		return !singleSignonUser.isEmpty() && singleSignonUser.equalsIgnoreCase(sessionDetails.getJid()) ;
+	}
 
     /**
      * Returns flag set true if password is mandatory.
@@ -354,7 +390,11 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
         isDirty = false;
         // Add JID set. The first item on the list is the current item.
         // TODO - investigate excluding any pending deletion
-        userSelector.initializeUsers(loginData.getUserList());
+        String currentJid = userSelector.initializeUsers(loginData.getUserList());
+        loginData.selectAccount(currentJid, ConnectionError.noError);
+        if (isGssapi(loginData.getSessionDetails()))
+        	singleSignonCheck.setSelection(true);
+        
         // Reset variables that may be set during login
         isLoginPending = false;
         gssapiPrincipal = null;
@@ -382,9 +422,23 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
     protected void toggleContent(Composite content)
     {
         GridData data = (GridData) content.getLayoutData();
-        data.exclude = !data.exclude;
-        content.setVisible(!data.exclude);
-        content.getParent().pack();
+        if (data == null)
+        {
+        	for (Control child: content.getChildren()) {
+                GridData childData = (GridData) content.getLayoutData();
+                if (childData != null) {
+                	childData.exclude = !childData.exclude;
+                	child.setVisible(!childData.exclude);
+                	child.getParent().pack();
+                }
+        	}
+        }
+        else 
+        {
+	        data.exclude = !data.exclude;
+	        content.setVisible(!data.exclude);
+	        content.getParent().pack();
+        }
         resizeDialog();
     }
 
@@ -400,40 +454,22 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
      */
     protected void okPressed() 
     {
-        /*
-        if (!isDirty && !loginData.getSessionDetails().isDirty())
-            return true; // No configuration changes, so exit dialog
-        */
         // Set isLoginPending true to get login to proceed after changes applied
         isLoginPending = true;
-        LoginConfig loginConfig = getLoginConfig(userSelector.getText());
-        applyChanges(loginConfig);
+        if (singleSignonCheck.getSelection())
+        	startSingleSignon();
+        else
+        {
+    	    LoginConfig loginConfig = getLoginConfig(userSelector.getText());
+        	applyChanges(loginConfig);
+        }
     }
  
-    /**
+	/**
      * Ultimate response to Login button pressed
      */
     protected abstract void login();
 
-    /**
-     * Returns listener for Single Signon button
-     * @return SelectionAdapter object
-     */
-    protected SelectionAdapter getSingleSignonSelectionAdapter()
-    {
-        return new SelectionAdapter()
-        {
-            public void widgetSelected(SelectionEvent event) 
-            {
-                hideAllFields();
-                if (gssapiPrincipal != null)
-                    onLoadKerberosConfig(gssapiPrincipal);
-                else
-                    loadKerberosConfig();
-            }
-        };
-    }
- 
     /**
      * Returns object containing Login Configuration and controls for
      * saving the configuration
@@ -457,4 +493,11 @@ public abstract class LoginControlsBase implements UpdateLoginConfigEvent, LoadK
         return loginConfig;
     }
  
+    private void startSingleSignon() {
+        if (gssapiPrincipal != null)
+            onLoadKerberosConfig(gssapiPrincipal);
+        else
+            loadKerberosConfig();
+	}
+
 }

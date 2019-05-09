@@ -82,6 +82,15 @@ public class UserDataStore extends SessionDetailsMap
     }
  
     /**
+     * Returns JID of single signon user
+     * @return JID or empty string if no single signon user configured
+     */
+    public String getSingleSignonUser()
+    {
+        return getValue(APPLICATION_PATH, StorageKey.sso_user, "");
+    }
+ 
+    /**
      * Returns flag set true if auto login configured
      * @return boolean
      */
@@ -199,4 +208,25 @@ public class UserDataStore extends SessionDetailsMap
         setValue(APPLICATION_PATH, StorageKey.last_user, jid);
     }
 
+    /**
+     * Persists JID of single signon user to successfully login
+     * @param user User JID
+     * @throws BackingStoreException if error occurs in Eclipse preferences
+     * @throws IOException if file error occurs on flush
+     */
+    public void saveSingleSignonUser(String user) throws BackingStoreException, IOException
+    {
+        setSingleSignonUser(user);
+        flush();
+    }
+
+    /**
+     * Saves JID of single signon user
+     * @param user User JID
+     * @throws BackingStoreException
+     */
+    void setSingleSignonUser(String jid) throws BackingStoreException
+    {
+        setValue(APPLICATION_PATH, StorageKey.sso_user, jid);
+    }
 }

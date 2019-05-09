@@ -156,7 +156,7 @@ public class KerberosDataTest
         Logger logger = mock(Logger.class);
         when(loggerProvider.getClassLogger(KerberosData.class)).thenReturn(logger );
         underTest.postConstruct(loggerProvider );
-        assertThat(underTest.getGssapiPrincipal()).isEqualTo("micky");
+        assertThat(underTest.getGssapiPrincipal()).isEqualTo("micky@disney.com");
         verify(loginContext).login();
         verify(loginContext).logout();
     }

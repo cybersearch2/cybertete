@@ -70,9 +70,6 @@ import au.com.cybersearch2.cybertete.smack.SmackLoginTaskTest;
 import au.com.cybersearch2.cybertete.smack.SmackRosterTest;
 import au.com.cybersearch2.cybertete.smack.XmppConnectionBaseTest;
 import au.com.cybersearch2.cybertete.smack.XmppConnectionFactoryTest;
-import au.com.cybersearch2.cybertete.status.PresenceStatusTest;
-import au.com.cybersearch2.cybertete.status.ConnectionStatusTest;
-import au.com.cybersearch2.cybertete.status.SecurityStatusTest;
 import au.com.cybersearch2.cybertete.views.ChatSessionViewTest;
 import au.com.cybersearch2.cybertete.views.ContactsLabelProviderTest;
 import au.com.cybersearch2.cybertete.views.ContactsViewTest;
@@ -81,6 +78,9 @@ import au.com.cybersearch2.cybertete.views.ViewLoginControlsTest;
 import au.com.cybersearch2.e4.LifeCycleHelperTest;
 import au.com.cybersearch2.e4.SecureStorageTest;
 import au.com.cybersearch2.e4.StorageSupportTest;
+import au.com.cybersearch2.cybertete.status.ConnectionStatusTest;
+import au.com.cybersearch2.cybertete.status.PresenceStatusTest;
+import au.com.cybersearch2.cybertete.status.SecurityStatusTest;
 
 /**
  * CyberteteTestSuite
@@ -114,9 +114,6 @@ import au.com.cybersearch2.e4.StorageSupportTest;
     ServiceThreadTest.class,
     ChatLoginProgressTaskTest.class,
     SessionDetailsSetTest.class,
-    ConnectionStatusTest.class,
-    PresenceStatusTest.class,
-    SecurityStatusTest.class,
     AddContactHandlerTest.class,
     SecurityHandlerTest.class,
     UpdateHandlerTest.class,
@@ -152,7 +149,10 @@ import au.com.cybersearch2.e4.StorageSupportTest;
     SessionDetailsMapTest.class,
     UserDataStoreTest.class,
     LifeCycleHelperTest.class,
-    LifeCycleHandlerTest.class
+    LifeCycleHandlerTest.class /*,
+    ConnectionStatusTest.class,
+    PresenceStatusTest.class,
+    SecurityStatusTest.class*/
 })
 public class CyberteteTestSuite
 {

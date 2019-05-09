@@ -18,10 +18,18 @@ package au.com.cybersearch2.cybertete;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import org.jivesoftware.smack.SmackInitialization;
+import org.xbill.DNS.Lookup;
+import org.xbill.DNS.Name;
+
+import au.com.cybersearch2.cybertete.model.dns.DnsResolver;
+import au.com.cybersearch2.cybertete.model.dns.HostAddress;
+import au.com.cybersearch2.cybertete.smack.SmackDnsResolver;
 
 /**
  * GlobalProperties
@@ -47,9 +55,12 @@ public class GlobalProperties
         "</smack>"
      };
 
+    private List<HostAddress> localXmppHosts;
+    
     @PostConstruct
     void postConstruct()
     {
+    	localXmppHosts = new ArrayList<>();
         setSystemProperties();
     }
     
@@ -92,7 +103,13 @@ public class GlobalProperties
     	return authConfigFile.exists();
     }
     
-    /**
+    public List<HostAddress> getLocalXmppHosts() {
+    	List<HostAddress> localXmppHostsCopy = new ArrayList<>();
+    	localXmppHostsCopy.addAll(localXmppHosts);
+    	return localXmppHostsCopy;
+	}
+
+	/**
      * Overrides Smack java.security.auth.login.config system property setting 
      */
     void setSystemProperties()
@@ -115,6 +132,13 @@ public class GlobalProperties
         {
             throw new CyberteteException("Error initializing Chat Service", e);
         }
+        // Use DNS to obtain local XMPP servers
+   		DnsResolver dnsResolver = new SmackDnsResolver();
+	   	Name[] names = Lookup.getDefaultSearchPath();
+	   	for (Name name: names) 
+	   	{
+	   		localXmppHosts.addAll(dnsResolver.resolveXMPPDomain(name.toString(true)));
+	   	}
 
         // Initialisation of the config builder is where SASLGSSAPIMechanism is first referenced.
         if (!loginConfigPath.isEmpty())
