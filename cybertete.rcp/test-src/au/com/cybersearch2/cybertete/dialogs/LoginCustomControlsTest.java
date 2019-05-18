@@ -78,7 +78,6 @@ public class LoginCustomControlsTest
         ArgumentCaptor<SelectionAdapter> advancedCaptor = ArgumentCaptor.forClass(SelectionAdapter.class);
         ControlFactory controlFactory = mock(ControlFactory.class);
         DialogLoginControls loginControls = mock(DialogLoginControls.class);
-        SelectionAdapter ssoAdapter = mock(SelectionAdapter.class);
         LoginCustomControls underTest = new LoginCustomControls(controlFactory, loginControls);
         underTest.createBarButtons(parent, buttonFactory, loginDialog);
         verify(advanced).addSelectionListener(advancedCaptor.capture());

@@ -16,7 +16,7 @@ import org.eclipse.core.databinding.observable.list.IObservableList;
 
 public interface IContactsRepository 
 {
-	IObservableList getAllContacts();
+	IObservableList<Contact> getAllContacts();
 
 	void addContact(Contact contact);
 

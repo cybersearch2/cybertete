@@ -78,9 +78,9 @@ import au.com.cybersearch2.cybertete.views.ViewLoginControlsTest;
 import au.com.cybersearch2.e4.LifeCycleHelperTest;
 import au.com.cybersearch2.e4.SecureStorageTest;
 import au.com.cybersearch2.e4.StorageSupportTest;
-import au.com.cybersearch2.cybertete.status.ConnectionStatusTest;
-import au.com.cybersearch2.cybertete.status.PresenceStatusTest;
-import au.com.cybersearch2.cybertete.status.SecurityStatusTest;
+//import au.com.cybersearch2.cybertete.status.ConnectionStatusTest;
+//import au.com.cybersearch2.cybertete.status.PresenceStatusTest;
+//import au.com.cybersearch2.cybertete.status.SecurityStatusTest;
 
 /**
  * CyberteteTestSuite

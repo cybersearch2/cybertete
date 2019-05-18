@@ -35,9 +35,6 @@ import au.com.cybersearch2.controls.ButtonControl;
 import au.com.cybersearch2.controls.ControlFactory;
 import au.com.cybersearch2.controls.LabelControl;
 import au.com.cybersearch2.controls.TextControl;
-import au.com.cybersearch2.cybertete.model.ConnectionError;
-import au.com.cybersearch2.cybertete.security.LoginStatus;
-import au.com.cybersearch2.cybertete.security.SecurityConfigController;
 import au.com.cybersearch2.cybertete.security.SingleSignonController;
 
 /**
@@ -49,8 +46,6 @@ import au.com.cybersearch2.cybertete.security.SingleSignonController;
 @Creatable
 public class SingleSignonControls {
 
-    private TextControl jidText;
-    
     TextControl accountJidText;
     ButtonControl apply;
 

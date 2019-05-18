@@ -30,7 +30,7 @@ public class ContactsRepositoryFactory
 
             @SuppressWarnings({"unchecked", "rawtypes"})
             @Override
-            public IObservableList getAllContacts()
+            public IObservableList<Contact> getAllContacts()
             {
                 List<Contact> contacts = new ArrayList<Contact>();
                 contacts.add(new Contact("Alize", "Aukland"));
