@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="au.com.cybersearch2.cybertete" uid="au.com.cybersearch2.cybertete.product" id="au.com.cybersearch2.cybertete.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.4.1.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="au.com.cybersearch2.cybertete" uid="au.com.cybersearch2.cybertete.product" id="au.com.cybersearch2.cybertete.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.4.2.qualifier" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>

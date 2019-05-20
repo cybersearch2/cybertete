@@ -4,7 +4,7 @@
     <parent>
         <groupId>au.com.cybersearch2</groupId>
         <artifactId>cybertete.root</artifactId>
-        <version>1.4.1-SNAPSHOT</version>
+        <version>1.4.2-SNAPSHOT</version>
     </parent>
     <artifactId>au.com.cybersearch2.cybertete</artifactId>
     <packaging>eclipse-plugin</packaging>

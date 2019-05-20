@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Cybertete
 Bundle-SymbolicName: au.com.cybersearch2.cybertete;singleton:=true
-Bundle-Version: 1.4.1.qualifier
+Bundle-Version: 1.4.2.qualifier
 Bundle-Activator: au.com.cybersearch2.cybertete.Activator
 Bundle-Vendor: Cybersearch2 Pty Ltd
 Require-Bundle: javax.inject;bundle-version="0.0.0",

@@ -2,7 +2,7 @@
 <feature
       id="au.com.cybersearch2.cybertete.feature"
       label="Feature"
-      version="1.4.1.qualifier"
+      version="1.4.2.qualifier"
       provider-name="Cybersearch2 Pty Ltd">
 
    <description url="http://www.example.com/description">
